@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CURUZA HUB F LTD - Business Connectivity & Sales Consultancy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png" type="image/png">
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <style>
+        /* Additional styles for dynamic homepage */
+        .dynamic-loading {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            color: #3b82f6;
+        }
+        
+        .dynamic-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .dynamic-stat {
+            text-align: center;
+            padding: 15px;
+            min-width: 150px;
+        }
+        
+        .dynamic-stat h3 {
+            font-size: 2.5rem;
+            color: #3b82f6;
+            margin-bottom: 5px;
+        }
+        
+        .dynamic-stat p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .admin-quick-access {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .admin-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .admin-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+        
+        .admin-btn.secondary {
+            background: #6b7280;
+        }
+        
+        .admin-btn.secondary:hover {
+            background: #4b5563;
+        }
+        
+        .real-time-badge {
+            background: #10b981;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            margin-left: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .last-updated {
+            font-size: 12px;
+            color: #9ca3af;
+            text-align: center;
+            margin-top: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png" alt="Curuza Hub Logo" class="sidebar-logo">
+            <h2>CURUZA HUB <span>F LTD</span></h2>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a></li>
+                <li><a href="profile.html"><i class="fas fa-building"></i> Company Profile</a></li>
+                <li><a href="opportunities.html"><i class="fas fa-briefcase"></i> Opportunities</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <p>Connecting Opportunities</p>
+            <div class="social-mini" id="sidebarSocial">
+                <!-- Dynamic social links will be loaded here -->
+                <a href="https://www.instagram.com/curuzahubf/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://web.facebook.com/profile.php?id=61585156175543" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://x.com/CuruzaF59495" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://wa.me/250785439453" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Header -->
+        <header class="main-header">
+            <button class="toggle-sidebar" id="toggleSidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-logo">
+                <img src="https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png" alt="Curuza Hub Logo">
+                <h1>CURUZA HUB <span>F LTD</span></h1>
+            </div>
+            <a href="contact.html" class="cta-button-header">Get In Touch</a>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-overlay"></div>
+            <video autoplay muted loop class="hero-video">
+                <source src="https://ik.imagekit.io/p5fgz8czl/lv_0_20251222205054.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-content">
+                <h2 class="hero-title">Business Connectivity & <span class="highlight">Sales Consultancy</span></h2>
+                <p class="hero-subtitle">Connecting industries, investors, talent, and customers for sustainable growth.</p>
+                <div class="hero-buttons">
+                    <a href="services.html" class="btn-primary">Our Services</a>
+                    <a href="contact.html" class="btn-secondary">Contact Us</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <!-- Loading Indicator for Dynamic Content -->
+        <div id="homepageLoading" class="dynamic-loading" style="display: none;">
+            <i class="fas fa-spinner fa-spin"></i> Loading latest updates...
+        </div>
+
+        <!-- Company Intro -->
+        <section class="section intro-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Welcome to <span class="brand-color">Curuza Hub F Ltd</span></h2>
+                    <p class="section-subtitle">Your trusted partner for business connections and growth solutions</p>
+                </div>
+                <div class="intro-content">
+                    <div class="intro-text">
+                        <p><strong>Curuza Hub F Ltd</strong> is a business connectivity and facilitation company established in 2025, focused on linking industries, investors, talent, and customers. The company provides market linkages, job and talent matching, business advisory services, professional training, and commission-based facilitation for goods and services.</p>
+                        <p>We exist to connect opportunities and empower sustainable business growth through reliable networks and professional support.</p>
+                        
+                        <!-- Dynamic Stats -->
+                        <div class="dynamic-stats" id="dynamicStats">
+                            <!-- Stats will be loaded here by JavaScript -->
+                            <div class="dynamic-stat">
+                                <h3>2025</h3>
+                                <p>Year Established</p>
+                            </div>
+                            <div class="dynamic-stat">
+                                <h3 id="activeServicesCount">5+</h3>
+                                <p>Active Services</p>
+                            </div>
+                            <div class="dynamic-stat">
+                                <h3 id="activeOpportunitiesCount">0</h3>
+                                <p>Current Opportunities</p>
+                            </div>
+                            <div class="dynamic-stat">
+                                <h3>100%</h3>
+                                <p>Client Focused</p>
+                            </div>
+                        </div>
+                        
+                        <div class="last-updated" id="statsUpdated">
+                            <!-- Last updated time will be shown here -->
+                        </div>
+                    </div>
+                    <div class="intro-image">
+                        <img src="https://ik.imagekit.io/p5fgz8czl/IMG-20251217-WA0009.jpg" alt="Curuza Hub Business Meeting">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Services (Dynamic) -->
+        <section class="section services-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our <span class="brand-color">Core Services</span></h2>
+                    <p class="section-subtitle">Comprehensive solutions for businesses and professionals</p>
+                </div>
+                
+                <!-- Loading for services -->
+                <div id="servicesLoading" class="dynamic-loading" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i> Loading services...
+                </div>
+                
+                <!-- Dynamic Services Grid -->
+                <div class="services-grid" id="dynamicServicesGrid">
+                    <!-- Services will be loaded here by JavaScript -->
+                    <!-- Fallback content -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <h3>Industry & Investor Linkages</h3>
+                        <p>Connecting industries, investors and customers across diverse markets.</p>
+                        <a href="services.html#linkages" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Talent & Job Matching</h3>
+                        <p>Connecting employers with qualified talent and job opportunities.</p>
+                        <a href="services.html#talent" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h3>Business Advisory & Training</h3>
+                        <p>Professional business advice and skills development programs.</p>
+                        <a href="services.html#advisory" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="section why-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Why <span class="brand-color">Choose Curuza Hub</span></h2>
+                    <p class="section-subtitle">Our values and commitment to excellence</p>
+                </div>
+                <div class="why-content">
+                    <div class="why-image">
+                        <img src="https://ik.imagekit.io/p5fgz8czl/IMG-20251217-WA0008.jpg" alt="Why Choose Curuza Hub">
+                    </div>
+                    <div class="why-list">
+                        <div class="why-item">
+                            <div class="why-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <div class="why-text">
+                                <h3>Professionalism</h3>
+                                <p>We maintain the highest standards of professional conduct in all our engagements.</p>
+                            </div>
+                        </div>
+                        <div class="why-item">
+                            <div class="why-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div class="why-text">
+                                <h3>Transparency</h3>
+                                <p>Clear communication and honest dealings build trust with our clients.</p>
+                            </div>
+                        </div>
+                        <div class="why-item">
+                            <div class="why-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="why-text">
+                                <h3>Integrity</h3>
+                                <p>We operate with strong ethical principles and reliability.</p>
+                            </div>
+                        </div>
+                        <div class="why-item">
+                            <div class="why-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="why-text">
+                                <h3>Innovation</h3>
+                                <p>Creative solutions tailored to modern business challenges.</p>
+                            </div>
+                        </div>
+                        <div class="why-item">
+                            <div class="why-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <div class="why-text">
+                                <h3>Client-Focused</h3>
+                                <p>Your success is our priority. We tailor solutions to your specific needs.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest Opportunities Preview -->
+        <section class="section opportunities-preview">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Latest <span class="brand-color">Opportunities</span></h2>
+                    <p class="section-subtitle">Current job, business, and investment opportunities</p>
+                    <a href="opportunities.html" class="view-all-link">View All Opportunities <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <!-- Loading for opportunities -->
+                <div id="opportunitiesLoading" class="dynamic-loading" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i> Loading opportunities...
+                </div>
+                
+                <!-- Dynamic Opportunities -->
+                <div class="opportunities-preview-grid" id="dynamicOpportunities">
+                    <!-- Opportunities will be loaded here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to Connect Your Business?</h2>
+                    <p>Let's discuss how Curuza Hub can help you access new markets, find the right talent, or grow your enterprise.</p>
+                    <div class="cta-buttons">
+                        <a href="contact.html" class="btn-primary">Contact Us Now</a>
+                        <a href="profile.html" class="btn-secondary">Download Company Profile</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png" alt="Curuza Hub Logo">
+                        <h3>CURUZA HUB <span>F LTD</span></h3>
+                    </div>
+                    <p class="footer-tagline">Connecting opportunities, empowering sustainable business growth.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/curuzahubf/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://web.facebook.com/profile.php?id=61585156175543" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/CuruzaF59495" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://wa.me/250785439453" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="mailto:curuzahubfltd@gmail.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="profile.html">Company Profile</a></li>
+                        <li><a href="opportunities.html">Opportunities</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html#linkages">Industry Linkages</a></li>
+                        <li><a href="services.html#talent">Talent Matching</a></li>
+                        <li><a href="services.html#advisory">Business Advisory</a></li>
+                        <li><a href="services.html#buyersellers">Buyer-Seller Connections</a></li>
+                        <li><a href="services.html#commission">Commission Services</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> Kigali / Nyarugenge, Kigali, Rwanda</li>
+                        <li><i class="fas fa-phone"></i> +250 785 439 453 / +250 728 083 403</li>
+                        <li><i class="fas fa-envelope"></i> curuzahubfltd@gmail.com</li>
+                        <li><i class="fas fa-globe"></i> https://wwwcuruzahubfltd.netlify.app</li>
+                        <li><i class="fas fa-id-card"></i> TIN: 150563319</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 CURUZA HUB F LTD. All rights reserved. | Business Connectivity & Sales Consultancy</p>
+                <p id="siteVersion" style="font-size: 12px; color: #9ca3af; margin-top: 5px;">
+                    <!-- Dynamic version info -->
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Admin Quick Access (only visible to admins) -->
+    <div class="admin-quick-access" id="adminQuickAccess" style="display: none;">
+        <!-- Admin buttons will be added here by JavaScript -->
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/main.js"></script>
+    
+    <!-- Optional Firebase Configuration -->
+    <script src="js/firebase-config.js" defer></script>
+    
+    <!-- Homepage Specific JavaScript -->
+    <script>
+        // Initialize EmailJS
+        (function() {
+            emailjs.init("JwwE4Hb0D0-if4S24");
+        })();
+
+        // Homepage dynamic content loader
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🏠 CURUZA HUB Homepage - Loading dynamic content');
+            
+            // Load dynamic content
+            loadHomepageData();
+            
+            // Set up admin controls if logged in
+            setupAdminControls();
+            
+            // Update version info
+            updateVersionInfo();
+        });
+        
+        // Load all homepage data
+        async function loadHomepageData() {
+            try {
+                // Show loading indicators
+                document.getElementById('homepageLoading').style.display = 'flex';
+                
+                // Load services
+                await loadFeaturedServices();
+                
+                // Load opportunities
+                await loadLatestOpportunities();
+                
+                // Load stats
+                await loadHomepageStats();
+                
+                // Update last updated time
+                updateLastUpdated();
+                
+            } catch (error) {
+                console.error('Error loading homepage data:', error);
+            } finally {
+                document.getElementById('homepageLoading').style.display = 'none';
+            }
+        }
+        
+        // Load featured services for homepage
+        async function loadFeaturedServices() {
+            const loadingEl = document.getElementById('servicesLoading');
+            const gridEl = document.getElementById('dynamicServicesGrid');
+            
+            if (!gridEl) return;
+            
+            try {
+                loadingEl.style.display = 'flex';
+                
+                // Try to load from JSON
+                const response = await fetch('/content/services/services.json');
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const services = await response.json();
+                
+                // Filter featured services (or first 4 active services)
+                const featuredServices = services
+                    .filter(service => service.active)
+                    .slice(0, 4);
+                
+                // Clear existing content (except fallback)
+                gridEl.innerHTML = '';
+                
+                // Render services
+                featuredServices.forEach(service => {
+                    const serviceCard = document.createElement('div');
+                    serviceCard.className = 'service-card';
+                    
+                    serviceCard.innerHTML = `
+                        <div class="service-icon">
+                            <i class="${service.icon || 'fas fa-handshake'}"></i>
+                            ${service.featured ? '<span class="real-time-badge">Featured</span>' : ''}
+                        </div>
+                        <h3>${service.title_en}</h3>
+                        <p>${service.description_en.substring(0, 100)}${service.description_en.length > 100 ? '...' : ''}</p>
+                        <a href="services.html#${service.id}" class="service-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                        ${service.updated ? `
+                        <div class="service-meta">
+                            <small><i class="fas fa-sync-alt"></i> Updated: ${formatDate(service.updated)}</small>
+                        </div>
+                        ` : ''}
+                    `;
+                    
+                    gridEl.appendChild(serviceCard);
+                });
+                
+                // Update services count
+                document.getElementById('activeServicesCount').textContent = services.filter(s => s.active).length;
+                
+            } catch (error) {
+                console.warn('Could not load services for homepage:', error);
+                // Keep fallback content
+            } finally {
+                loadingEl.style.display = 'none';
+            }
+        }
+        
+        // Load latest opportunities for homepage
+        async function loadLatestOpportunities() {
+            const loadingEl = document.getElementById('opportunitiesLoading');
+            const containerEl = document.getElementById('dynamicOpportunities');
+            
+            if (!containerEl) return;
+            
+            try {
+                loadingEl.style.display = 'flex';
+                
+                // Try to load from JSON
+                const response = await fetch('/content/opportunities/opportunities.json');
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const opportunities = await response.json();
+                
+                // Filter active opportunities
+                const activeOpportunities = opportunities
+                    .filter(opp => opp.status === 'active')
+                    .slice(0, 3); // Show only 3 latest
+                
+                // Clear container
+                containerEl.innerHTML = '';
+                
+                if (activeOpportunities.length === 0) {
+                    containerEl.innerHTML = `
+                        <div class="no-opportunities">
+                            <p>No current opportunities. Check back soon!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Render opportunities
+                activeOpportunities.forEach(opportunity => {
+                    const opportunityCard = document.createElement('div');
+                    opportunityCard.className = 'opportunity-preview-card';
+                    
+                    const typeIcons = {
+                        job: 'fa-briefcase',
+                        business: 'fa-handshake',
+                        investment: 'fa-chart-line',
+                        partnership: 'fa-users'
+                    };
+                    
+                    opportunityCard.innerHTML = `
+                        <div class="opportunity-type ${opportunity.type}">
+                            <i class="fas ${typeIcons[opportunity.type] || 'fa-briefcase'}"></i>
+                            ${opportunity.type.toUpperCase()}
+                        </div>
+                        <h4>${opportunity.title}</h4>
+                        <p>${opportunity.description.substring(0, 80)}${opportunity.description.length > 80 ? '...' : ''}</p>
+                        <div class="opportunity-meta">
+                            <span><i class="fas fa-map-marker-alt"></i> ${opportunity.location}</span>
+                            ${opportunity.company ? `<span><i class="fas fa-building"></i> ${opportunity.company}</span>` : ''}
+                        </div>
+                        <a href="opportunities.html" class="opportunity-link">View Details</a>
+                    `;
+                    
+                    containerEl.appendChild(opportunityCard);
+                });
+                
+                // Update opportunities count
+                const activeCount = opportunities.filter(opp => opp.status === 'active').length;
+                document.getElementById('activeOpportunitiesCount').textContent = activeCount;
+                
+            } catch (error) {
+                console.warn('Could not load opportunities for homepage:', error);
+                containerEl.innerHTML = `
+                    <div class="no-opportunities">
+                        <p>Unable to load opportunities. Please visit the Opportunities page.</p>
+                    </div>
+                `;
+            } finally {
+                loadingEl.style.display = 'none';
+            }
+        }
+        
+        // Load homepage stats
+        async function loadHomepageStats() {
+            try {
+                // Load opportunities for count
+                const oppResponse = await fetch('/content/opportunities/opportunities.json');
+                if (oppResponse.ok) {
+                    const opportunities = await oppResponse.json();
+                    const activeCount = opportunities.filter(opp => opp.status === 'active').length;
+                    document.getElementById('activeOpportunitiesCount').textContent = activeCount;
+                }
+                
+                // Load services for count
+                const servicesResponse = await fetch('/content/services/services.json');
+                if (servicesResponse.ok) {
+                    const services = await servicesResponse.json();
+                    const activeServices = services.filter(s => s.active).length;
+                    document.getElementById('activeServicesCount').textContent = activeServices;
+                }
+                
+            } catch (error) {
+                console.warn('Could not load stats:', error);
+            }
+        }
+        
+        // Setup admin controls
+        function setupAdminControls() {
+            // Check if user is logged in (Netlify Identity)
+            if (typeof netlifyIdentity !== 'undefined' && netlifyIdentity.currentUser()) {
+                const adminAccess = document.getElementById('adminQuickAccess');
+                adminAccess.style.display = 'flex';
+                
+                // Add admin buttons
+                adminAccess.innerHTML = `
+                    <a href="/admin/#/collections" class="admin-btn">
+                        <i class="fas fa-cog"></i> CMS Dashboard
+                    </a>
+                    <a href="/admin/#/collections/services" class="admin-btn secondary">
+                        <i class="fas fa-concierge-bell"></i> Edit Services
+                    </a>
+                    <a href="/admin/#/collections/opportunities" class="admin-btn secondary">
+                        <i class="fas fa-briefcase"></i> Edit Opportunities
+                    </a>
+                    <button class="admin-btn secondary" onclick="refreshHomepageData()">
+                        <i class="fas fa-sync-alt"></i> Refresh Data
+                    </button>
+                `;
+                
+                // Add Firebase admin controls if available
+                if (typeof CURUZA_FIREBASE !== 'undefined' && CURUZA_FIREBASE.isInitialized()) {
+                    adminAccess.innerHTML += `
+                        <button class="admin-btn secondary" onclick="showFirebaseStats()">
+                            <i class="fas fa-fire"></i> Firebase Stats
+                        </button>
+                    `;
+                }
+            }
+        }
+        
+        // Update version info
+        function updateVersionInfo() {
+            const versionEl = document.getElementById('siteVersion');
+            if (versionEl) {
+                versionEl.innerHTML = `
+                    Version: v1.1.0 (Dynamic CMS) | 
+                    Data Source: JSON + Netlify CMS |
+                    Last Update: ${new Date().toLocaleDateString()}
+                `;
+            }
+        }
+        
+        // Update last updated time
+        function updateLastUpdated() {
+            const updatedEl = document.getElementById('statsUpdated');
+            if (updatedEl) {
+                updatedEl.textContent = `Last updated: ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+            }
+        }
+        
+        // Format date helper
+        function formatDate(dateString) {
+            if (!dateString) return 'Recently';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+        
+        // Refresh data function
+        function refreshHomepageData() {
+            showNotification('Refreshing homepage data...', 'info');
+            loadHomepageData();
+        }
+        
+        // Show Firebase stats (if available)
+        function showFirebaseStats() {
+            if (typeof CURUZA_FIREBASE !== 'undefined') {
+                CURUZA_FIREBASE.getAllSubmissions('contactSubmissions').then(result => {
+                    if (result.success) {
+                        showNotification(`Firebase: ${result.data.length} contact submissions`, 'info');
+                    }
+                });
+            }
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `global-notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+                <button class="notification-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            Object.assign(notification.style, {
+                position: 'fixed',
+                top: '20px',
+                right: '20px',
+                background: type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6',
+                color: 'white',
+                padding: '1rem 1.5rem',
+                borderRadius: '0.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+                zIndex: '99999',
+                transform: 'translateX(150%)',
+                transition: 'transform 0.3s ease'
+            });
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Close button
+            notification.querySelector('.notification-close').addEventListener('click', () => {
+                notification.style.transform = 'translateX(150%)';
+                setTimeout(() => notification.remove(), 300);
+            });
+            
+            // Auto-remove
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.transform = 'translateX(150%)';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
+        }
+        
+        // Make functions available globally
+        window.refreshHomepageData = refreshHomepageData;
+        window.showFirebaseStats = showFirebaseStats;
+    </script>
+</body>
+</html>
