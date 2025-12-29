@@ -1,0 +1,23 @@
+{
+  "page_title": "Contact Curuza Hub",
+  "contact_info": {
+    "address": "Kigali / Nyarugenge, Kigali, Rwanda",
+    "phone_primary": "+250 785 439 453",
+    "phone_secondary": "+250 728 083 403",
+    "email": "curuzahubfltd@gmail.com",
+    "website": "https://curuzahubfltd.netlify.app",
+    "business_hours": "Monday - Friday: 8:00 AM - 5:00 PM | Saturday: 9:00 AM - 1:00 PM | Sunday: Closed"
+  },
+  "social_media": {
+    "facebook": "https://facebook.com/curuzahub",
+    "twitter": "https://twitter.com/curuzahub",
+    "linkedin": "https://linkedin.com/company/curuzahub",
+    "instagram": "https://instagram.com/curuzahub",
+    "whatsapp": "https://wa.me/250785439453"
+  },
+  "map": {
+    "google_maps_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.4779501435086!2d30.058648774996694!3d-1.954326998049264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca4254c2040a5%3A0x11bf2e0733e743d9!2sNyarugenge%2C%20Kigali%2C%20Rwanda!5e0!3m2!1sen!2sus!4v1644567890123!5m2!1sen!2sus",
+    "latitude": "-1.954327",
+    "longitude": "30.060837"
+  }
+}

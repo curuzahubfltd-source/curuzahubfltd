@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - CURUZA HUB F LTD</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png" type="image/png">
+    <style>
+        /* Additional styles for dynamic content */
+        .loading-services {
+            text-align: center;
+            padding: 40px;
+            color: #3b82f6;
+            font-size: 18px;
+        }
+        .loading-services i {
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .lang-btn {
+            padding: 8px 16px;
+            background: #f3f4f6;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0 5px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .lang-btn.active {
+            background: #3b82f6;
+            color: white;
+        }
+        .dynamic-content {
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <img src="https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png" alt="Curuza Hub Logo" class="sidebar-logo">
+            <h2>CURUZA HUB <span>F LTD</span></h2>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="services.html" class="active"><i class="fas fa-concierge-bell"></i> Services</a></li>
+                <li><a href="profile.html"><i class="fas fa-building"></i> Company Profile</a></li>
+                <li><a href="opportunities.html"><i class="fas fa-briefcase"></i> Opportunities</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <p>Connecting Opportunities</p>
+            <div class="social-mini">
+                <a href="https://www.instagram.com/curuzahubf/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://web.facebook.com/profile.php?id=61585156175543" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://x.com/CuruzaF59495" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://wa.me/250785439453" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Header -->
+        <header class="main-header">
+            <button class="toggle-sidebar" id="toggleSidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-logo">
+                <img src="https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png" alt="Curuza Hub Logo">
+                <h1>CURUZA HUB <span>F LTD</span></h1>
+            </div>
+            <a href="contact.html" class="cta-button-header">Get In Touch</a>
+        </header>
+
+        <!-- Page Hero -->
+        <section class="page-hero">
+            <div class="container">
+                <h1 class="page-title">Our <span class="highlight">Services</span></h1>
+                <p class="page-subtitle">Comprehensive business connectivity and facilitation solutions</p>
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a> <i class="fas fa-chevron-right"></i> <span>Services</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Introduction -->
+        <section class="section services-intro">
+            <div class="container">
+                <div class="services-intro-content">
+                    <div class="intro-text">
+                        <h2>Business <span class="brand-color">Connectivity Solutions</span></h2>
+                        <p>At Curuza Hub F Ltd, we provide comprehensive business connectivity and facilitation services designed to bridge gaps, create opportunities, and drive sustainable growth for businesses and professionals across various sectors.</p>
+                        <p>Our bilingual approach ensures we effectively serve both English and Kinyarwanda speaking clients.</p>
+                        
+                        <div class="language-toggle">
+                            <button class="lang-btn active" id="langEn" data-lang="en">English</button>
+                            <button class="lang-btn" id="langRw" data-lang="rw">Kinyarwanda</button>
+                        </div>
+                    </div>
+                    <div class="intro-image">
+                        <img src="https://ik.imagekit.io/p5fgz8czl/IMG-20251217-WA0008.jpg" alt="Curuza Hub Services" id="servicesHeroImage">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading State -->
+        <div id="servicesLoading" class="loading-services">
+            <i class="fas fa-circle-notch"></i> Loading services...
+        </div>
+
+        <!-- Error State -->
+        <div id="servicesError" class="error-message" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i> 
+            <h3>Unable to Load Services</h3>
+            <p>We're having trouble loading our services. Please try again later or contact us directly.</p>
+            <button id="retryLoad" class="btn-primary" style="margin-top: 10px;">Retry</button>
+        </div>
+
+        <!-- Services Section (Dynamic Content) -->
+        <section class="section detailed-services dynamic-content" id="servicesContainer" style="display: none;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our <span class="brand-color">Core Services</span></h2>
+                    <p class="section-subtitle" id="servicesSubtitle">Detailed overview of our professional offerings</p>
+                </div>
+
+                <!-- Services will be dynamically inserted here -->
+                <div id="servicesList"></div>
+            </div>
+        </section>
+
+        <!-- Service Packages (Static - Can be moved to JSON later) -->
+        <section class="section packages-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Service <span class="brand-color">Packages</span></h2>
+                    <p class="section-subtitle">Flexible options to meet your business needs</p>
+                </div>
+                
+                <div class="packages-grid">
+                    <div class="package-card">
+                        <div class="package-header">
+                            <h3>Basic Connect</h3>
+                            <div class="package-price">Starting at <span>$500</span></div>
+                        </div>
+                        <div class="package-features">
+                            <p><i class="fas fa-check"></i> One service category</p>
+                            <p><i class="fas fa-check"></i> Up to 5 connections</p>
+                            <p><i class="fas fa-check"></i> Basic advisory support</p>
+                            <p><i class="fas fa-check"></i> 30-day support</p>
+                        </div>
+                        <a href="contact.html" class="btn-package">Choose Basic</a>
+                    </div>
+                    
+                    <div class="package-card popular">
+                        <div class="package-badge">Most Popular</div>
+                        <div class="package-header">
+                            <h3>Professional Hub</h3>
+                            <div class="package-price">Starting at <span>$1,500</span></div>
+                        </div>
+                        <div class="package-features">
+                            <p><i class="fas fa-check"></i> Up to 3 service categories</p>
+                            <p><i class="fas fa-check"></i> Unlimited connections</p>
+                            <p><i class="fas fa-check"></i> Full advisory support</p>
+                            <p><i class="fas fa-check"></i> Training sessions included</p>
+                            <p><i class="fas fa-check"></i> 90-day support</p>
+                        </div>
+                        <a href="contact.html" class="btn-package">Choose Professional</a>
+                    </div>
+                    
+                    <div class="package-card">
+                        <div class="package-header">
+                            <h3>Enterprise Suite</h3>
+                            <div class="package-price">Custom <span>Pricing</span></div>
+                        </div>
+                        <div class="package-features">
+                            <p><i class="fas fa-check"></i> All service categories</p>
+                            <p><i class="fas fa-check"></i> Dedicated account manager</p>
+                            <p><i class="fas fa-check"></i> Priority connections</p>
+                            <p><i class="fas fa-check"></i> Custom training programs</p>
+                            <p><i class="fas fa-check"></i> Annual partnership</p>
+                        </div>
+                        <a href="contact.html" class="btn-package">Contact for Enterprise</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to Connect with Our Services?</h2>
+                    <p>Whether you need business linkages, talent matching, advisory services, or transaction facilitation, Curuza Hub has the solution for you.</p>
+                    <div class="cta-buttons">
+                        <a href="contact.html" class="btn-primary">Get Started Today</a>
+                        <a href="profile.html" class="btn-secondary">Download Company Profile</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png" alt="Curuza Hub Logo">
+                        <h3>CURUZA HUB <span>F LTD</span></h3>
+                    </div>
+                    <p class="footer-tagline">Connecting opportunities, empowering sustainable business growth.</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/curuzahubf/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://web.facebook.com/profile.php?id=61585156175543" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/CuruzaF59495" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://wa.me/250785439453" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="mailto:curuzahubfltd@gmail.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="profile.html">Company Profile</a></li>
+                        <li><a href="opportunities.html">Opportunities</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Our Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="services.html#linkages">Industry Linkages</a></li>
+                        <li><a href="services.html#talent">Talent Matching</a></li>
+                        <li><a href="services.html#advisory">Business Advisory</a></li>
+                        <li><a href="services.html#buyersellers">Buyer-Seller Connections</a></li>
+                        <li><a href="services.html#commission">Commission Services</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <ul class="footer-contact">
+                        <li><i class="fas fa-map-marker-alt"></i> Kigali / Nyarugenge, Kigali, Rwanda</li>
+                        <li><i class="fas fa-phone"></i> +250 785 439 453 / +250 728 083 403</li>
+                        <li><i class="fas fa-envelope"></i> curuzahubfltd@gmail.com</li>
+                        <li><i class="fas fa-globe"></i> https://curuzahubfltd.netlify.app</li>
+                        <li><i class="fas fa-id-card"></i> TIN: 150563319</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 CURUZA HUB F LTD. All rights reserved. | Business Connectivity & Sales Consultancy</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/main.js"></script>
+    <script>
+        // Current language state
+        let currentLang = 'en';
+        
+        // DOM Elements
+        const servicesLoading = document.getElementById('servicesLoading');
+        const servicesError = document.getElementById('servicesError');
+        const servicesContainer = document.getElementById('servicesContainer');
+        const servicesList = document.getElementById('servicesList');
+        const langEnBtn = document.getElementById('langEn');
+        const langRwBtn = document.getElementById('langRw');
+        const retryBtn = document.getElementById('retryLoad');
+        const servicesHeroImage = document.getElementById('servicesHeroImage');
+        
+        // Load services data from JSON
+        async function loadServices() {
+            try {
+                servicesLoading.style.display = 'block';
+                servicesError.style.display = 'none';
+                servicesContainer.style.display = 'none';
+                
+                const response = await fetch('/content/services/services.json');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                
+                const services = await response.json();
+                
+                // Filter active services only
+                const activeServices = services.filter(service => service.active);
+                
+                // Sort by order field
+                activeServices.sort((a, b) => a.order - b.order);
+                
+                // Hide loading
+                servicesLoading.style.display = 'none';
+                
+                // Render services
+                renderServices(activeServices);
+                
+                // Show container
+                servicesContainer.style.display = 'block';
+                
+                // Update hero image if first service has an image
+                if (activeServices.length > 0 && activeServices[0].featured_image) {
+                    servicesHeroImage.src = activeServices[0].featured_image;
+                }
+                
+                console.log(`Loaded ${activeServices.length} services successfully`);
+                
+            } catch (error) {
+                console.error('Error loading services:', error);
+                servicesLoading.style.display = 'none';
+                servicesError.style.display = 'block';
+                servicesContainer.style.display = 'none';
+            }
+        }
+        
+        // Render services to the page
+        function renderServices(services) {
+            servicesList.innerHTML = '';
+            
+            services.forEach((service, index) => {
+                const serviceNumber = (index + 1).toString().padStart(2, '0');
+                
+                // Determine which icon to use
+                const iconClass = service.icon || getDefaultIcon(service.id);
+                
+                // Create service card HTML
+                const serviceCard = document.createElement('div');
+                serviceCard.className = 'service-detail-card';
+                serviceCard.id = service.id;
+                
+                serviceCard.innerHTML = `
+                    <div class="service-detail-header">
+                        <div class="service-number">${serviceNumber}</div>
+                        <div class="service-detail-title">
+                            <h3 class="service-title-en">${service.title_en}</h3>
+                            <h3 class="service-title-rw" style="display: none;">${service.title_rw}</h3>
+                            <p class="service-kinyarwanda">${service.title_rw}</p>
+                        </div>
+                        <div class="service-icon-large">
+                            <i class="${iconClass}"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="service-detail-content">
+                        <div class="service-description">
+                            <div class="desc-column">
+                                <h4 class="desc-title-en">Service Overview</h4>
+                                <h4 class="desc-title-rw" style="display: none;">Ingero ya Serivisi</h4>
+                                <p class="desc-text-en">${service.description_en}</p>
+                                <p class="desc-text-rw" style="display: none;">${service.description_rw}</p>
+                                
+                                ${service.details_en ? `
+                                <div class="service-details">
+                                    <h4 class="details-title-en">Additional Details</h4>
+                                    <h4 class="details-title-rw" style="display: none;">Ibindi Bisobanuro</h4>
+                                    <div class="details-content-en">${formatMarkdown(service.details_en)}</div>
+                                    <div class="details-content-rw" style="display: none;">${formatMarkdown(service.details_rw || service.details_en)}</div>
+                                </div>
+                                ` : ''}
+                            </div>
+                            
+                            <div class="desc-column">
+                                <h4 class="benefits-title-en">Key Benefits</h4>
+                                <h4 class="benefits-title-rw" style="display: none;">Ibitera Inyungu</h4>
+                                <ul class="benefits-list benefits-list-en">
+                                    ${getDefaultBenefits(service.id, 'en').map(benefit => 
+                                        `<li><i class="fas fa-check"></i> ${benefit}</li>`
+                                    ).join('')}
+                                </ul>
+                                <ul class="benefits-list benefits-list-rw" style="display: none;">
+                                    ${getDefaultBenefits(service.id, 'rw').map(benefit => 
+                                        `<li><i class="fas fa-check"></i> ${benefit}</li>`
+                                    ).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="service-cta">
+                            <a href="contact.html" class="btn-service">${currentLang === 'en' ? 'Learn More' : 'Menya Birenzeho'}</a>
+                            <span class="service-note">${currentLang === 'en' ? 'Professional service' : 'Serivisi y\'umwuga'}</span>
+                        </div>
+                    </div>
+                `;
+                
+                servicesList.appendChild(serviceCard);
+            });
+            
+            // Apply current language
+            updateLanguageDisplay();
+        }
+        
+        // Helper function to get default icon based on service ID
+        function getDefaultIcon(serviceId) {
+            const iconMap = {
+                'industry-linkages': 'fas fa-link',
+                'talent-jobs': 'fas fa-users',
+                'business-advisory': 'fas fa-chalkboard-teacher',
+                'buyer-seller': 'fas fa-handshake',
+                'commission-services': 'fas fa-percentage'
+            };
+            return iconMap[serviceId] || 'fas fa-handshake';
+        }
+        
+        // Helper function to get default benefits
+        function getDefaultBenefits(serviceId, lang) {
+            const benefits = {
+                'industry-linkages': {
+                    en: [
+                        'Access to new markets and customer segments',
+                        'Investment opportunities and funding connections',
+                        'Strategic partnerships and collaborations',
+                        'Market intelligence and insights',
+                        'Reduced search and transaction costs'
+                    ],
+                    rw: [
+                        'Kubona amasoko mashya n\'abakiriya',
+                        'Amahirwe yo gushora imari n\'ubufatanye',
+                        'Ubufatanye n\'ubwikorezi bwo gushyira hamwe',
+                        'Ubumenyi bw\'amasoko n\'ibisobanuro',
+                        'Kugabanya ibiciro byo gushakisha no gukora ibikorwa'
+                    ]
+                },
+                'talent-jobs': {
+                    en: [
+                        'Access to qualified professionals',
+                        'Efficient recruitment process',
+                        'Cultural fit assessment',
+                        'Career development support',
+                        'Retention strategy guidance'
+                    ],
+                    rw: [
+                        'Kubona abakozi bafite ubuhanga',
+                        'Uburyo bworoshye bwo gushaka abakozi',
+                        'Gusuzuma uburyo bwo guhuza',
+                        'Inkunga yo guteza imbere umwuga',
+                        'Inama z\'ingamba zo gukomeza abakozi'
+                    ]
+                },
+                'business-advisory': {
+                    en: [
+                        'Expert strategic guidance',
+                        'Customized business solutions',
+                        'Financial planning assistance',
+                        'Market analysis and insights',
+                        'Implementation support'
+                    ],
+                    rw: [
+                        'Inama z\'ubuhanga z\'ingamba',
+                        'Ibisubizo by\'ubucuruzi byihariye',
+                        'Gufasha mu gutezimbere imari',
+                        'Gusuzuma isoko n\'ibisobanuro',
+                        'Inkunga yo gukora'
+                    ]
+                },
+                'buyer-seller': {
+                    en: [
+                        'Verified buyers and sellers',
+                        'Secure transaction process',
+                        'Market value assessment',
+                        'Negotiation facilitation',
+                        'Documentation support'
+                    ],
+                    rw: [
+                        'Abagura n\'abagurisha bemewe',
+                        'Uburyo bwo gukora ibikorwa butabaye',
+                        'Gusuzuma agaciro k\'isoko',
+                        'Gufasha mu nama',
+                        'Inkunga mu nyandiko'
+                    ]
+                },
+                'commission-services': {
+                    en: [
+                        'Performance-based commission',
+                        'Transparent fee structure',
+                        'Secure payment handling',
+                        'Legal compliance assurance',
+                        'Dispute resolution support'
+                    ],
+                    rw: [
+                        'Ikomisiyo ishingiye ku bikorwa',
+                        'Imiterere y\'amafaranga isobanutse',
+                        'Gutunganya ubwishyu butabaye',
+                        'Kwemeza ko bihuje n\'amategeko',
+                        'Inkunga mu gukemura impaka'
+                    ]
+                }
+            };
+            
+            return benefits[serviceId]?.[lang] || benefits['industry-linkages'][lang];
+        }
+        
+        // Simple markdown formatting (can be enhanced)
+        function formatMarkdown(text) {
+            if (!text) return '';
+            
+            // Convert headings
+            let formatted = text.replace(/^### (.*$)/gim, '<h5>$1</h5>');
+            formatted = formatted.replace(/^## (.*$)/gim, '<h4>$1</h4>');
+            formatted = formatted.replace(/^# (.*$)/gim, '<h3>$1</h3>');
+            
+            // Convert bold
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // Convert lists
+            formatted = formatted.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
+            formatted = formatted.replace(/(<li>.*<\/li>)/gims, '<ul>$1</ul>');
+            
+            // Convert paragraphs
+            const lines = formatted.split('\n');
+            let inList = false;
+            let result = [];
+            
+            lines.forEach(line => {
+                if (line.startsWith('<ul>') || line.startsWith('<li>') || line.startsWith('</ul>')) {
+                    if (line.startsWith('</ul>')) inList = false;
+                    if (line.startsWith('<ul>')) inList = true;
+                    result.push(line);
+                } else if (line.trim() && !line.startsWith('<h')) {
+                    if (!inList) {
+                        result.push(`<p>${line}</p>`);
+                    }
+                } else if (!line.trim() && !inList) {
+                    result.push('<br>');
+                } else {
+                    result.push(line);
+                }
+            });
+            
+            return result.join('\n');
+        }
+        
+        // Update language display
+        function updateLanguageDisplay() {
+            // Update button states
+            langEnBtn.classList.toggle('active', currentLang === 'en');
+            langRwBtn.classList.toggle('active', currentLang === 'rw');
+            
+            // Update all language-specific elements
+            document.querySelectorAll('.service-title-en, .desc-title-en, .details-title-en, .benefits-title-en').forEach(el => {
+                el.style.display = currentLang === 'en' ? 'block' : 'none';
+            });
+            
+            document.querySelectorAll('.service-title-rw, .desc-title-rw, .details-title-rw, .benefits-title-rw').forEach(el => {
+                el.style.display = currentLang === 'rw' ? 'block' : 'none';
+            });
+            
+            document.querySelectorAll('.desc-text-en, .details-content-en').forEach(el => {
+                el.style.display = currentLang === 'en' ? 'block' : 'none';
+            });
+            
+            document.querySelectorAll('.desc-text-rw, .details-content-rw').forEach(el => {
+                el.style.display = currentLang === 'rw' ? 'block' : 'none';
+            });
+            
+            document.querySelectorAll('.benefits-list-en').forEach(el => {
+                el.style.display = currentLang === 'en' ? 'block' : 'none';
+            });
+            
+            document.querySelectorAll('.benefits-list-rw').forEach(el => {
+                el.style.display = currentLang === 'rw' ? 'block' : 'none';
+            });
+            
+            // Update CTA buttons
+            document.querySelectorAll('.btn-service').forEach(btn => {
+                btn.textContent = currentLang === 'en' ? 'Learn More' : 'Menya Birenzeho';
+            });
+            
+            document.querySelectorAll('.service-note').forEach(note => {
+                note.textContent = currentLang === 'en' ? 'Professional service' : 'Serivisi y\'umwuga';
+            });
+        }
+        
+        // Event Listeners
+        langEnBtn.addEventListener('click', () => {
+            currentLang = 'en';
+            updateLanguageDisplay();
+        });
+        
+        langRwBtn.addEventListener('click', () => {
+            currentLang = 'rw';
+            updateLanguageDisplay();
+        });
+        
+        retryBtn.addEventListener('click', loadServices);
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadServices);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1028 @@
+/* ============================================
+   CURUZA HUB F LTD - RESPONSIVE STYLESHEET
+   Mobile-First Responsive Design with Dynamic CMS
+   Version: 1.1.0 (Dynamic CMS Edition)
+   ============================================ */
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+:root {
+    /* Breakpoints */
+    --bp-mobile: 480px;
+    --bp-tablet: 768px;
+    --bp-desktop: 1024px;
+    --bp-wide: 1200px;
+    
+    /* Spacing for different screens */
+    --space-mobile: 1rem;
+    --space-tablet: 1.5rem;
+    --space-desktop: 2rem;
+    
+    /* Font sizes */
+    --font-mobile: 14px;
+    --font-tablet: 15px;
+    --font-desktop: 16px;
+}
+
+/* ===== BASE MOBILE STYLES (MOBILE FIRST) ===== */
+@media (max-width: 767px) {
+    /* Global adjustments */
+    html {
+        font-size: var(--font-mobile);
+    }
+    
+    .container {
+        padding: 0 var(--space-mobile);
+        max-width: 100%;
+    }
+    
+    /* Hide desktop elements */
+    .desktop-only {
+        display: none !important;
+    }
+    
+    /* Show mobile elements */
+    .mobile-only {
+        display: block !important;
+    }
+    
+    /* ===== DYNAMIC CONTENT MOBILE ADJUSTMENTS ===== */
+    
+    /* Admin quick access buttons */
+    .admin-quick-access {
+        position: fixed;
+        bottom: 70px; /* Above mobile menu */
+        left: 10px;
+        right: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        z-index: 999;
+    }
+    
+    .admin-btn {
+        font-size: 11px !important;
+        padding: 6px 10px !important;
+        min-height: 36px;
+        flex: 1;
+        max-width: 120px;
+        text-align: center;
+    }
+    
+    .admin-btn i {
+        margin-right: 4px !important;
+    }
+    
+    /* Dynamic stats */
+    .dynamic-stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+    }
+    
+    .dynamic-stat h3 {
+        font-size: 1.75rem !important;
+    }
+    
+    /* Real-time badge */
+    .real-time-badge {
+        font-size: 8px !important;
+        padding: 2px 6px !important;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+    
+    /* Loading indicators */
+    .dynamic-loading {
+        padding: 15px !important;
+        font-size: 0.9rem;
+    }
+    
+    /* Last updated info */
+    .last-updated {
+        font-size: 10px !important;
+        text-align: center;
+        margin-top: 15px !important;
+    }
+    
+    /* ===== HEADER & NAVIGATION ===== */
+    
+    /* Main header */
+    .main-header {
+        padding: 10px var(--space-mobile) !important;
+    }
+    
+    .header-logo {
+        flex: 1;
+    }
+    
+    .header-logo h1 {
+        font-size: 1.1rem !important;
+    }
+    
+    .cta-button-header {
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+        white-space: nowrap;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+        width: 85vw !important;
+    }
+    
+    .sidebar-header h2 {
+        font-size: 1.2rem !important;
+    }
+    
+    .sidebar-nav a {
+        padding: 12px 15px !important;
+        font-size: 0.95rem !important;
+    }
+    
+    .sidebar-footer {
+        padding: 15px !important;
+    }
+    
+    /* ===== HERO SECTION ===== */
+    
+    .hero-section {
+        min-height: 60vh !important;
+        padding: var(--space-mobile) !important;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem !important;
+        line-height: 1.3 !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .hero-buttons {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    
+    .hero-buttons .btn-primary,
+    .hero-buttons .btn-secondary {
+        width: 100% !important;
+        text-align: center;
+    }
+    
+    .scroll-indicator {
+        bottom: 20px !important;
+        width: 30px;
+        height: 30px;
+    }
+    
+    /* ===== DYNAMIC CONTENT SECTIONS ===== */
+    
+    .section-header h2 {
+        font-size: 1.6rem !important;
+    }
+    
+    .section-subtitle {
+        font-size: 0.95rem !important;
+        margin-bottom: 25px !important;
+    }
+    
+    /* Services grid */
+    .services-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
+    .service-card {
+        padding: 20px !important;
+    }
+    
+    .service-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+        margin-bottom: 15px;
+    }
+    
+    .service-card h3 {
+        font-size: 1.2rem !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .service-card p {
+        font-size: 0.9rem !important;
+        margin-bottom: 15px !important;
+    }
+    
+    /* Intro section */
+    .intro-content {
+        flex-direction: column !important;
+        gap: 25px !important;
+    }
+    
+    .intro-text p {
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+    }
+    
+    .intro-stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+        margin-top: 25px !important;
+    }
+    
+    .stat-item {
+        padding: 15px !important;
+        text-align: center;
+    }
+    
+    .stat-item h3 {
+        font-size: 1.5rem !important;
+    }
+    
+    /* Why choose us */
+    .why-content {
+        flex-direction: column !important;
+        gap: 25px !important;
+    }
+    
+    .why-item {
+        flex-direction: column !important;
+        text-align: center;
+        padding: 20px !important;
+        gap: 15px !important;
+    }
+    
+    .why-icon {
+        margin: 0 auto 10px !important;
+        width: 50px;
+        height: 50px;
+    }
+    
+    /* Opportunities preview */
+    .opportunities-preview-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
+    .opportunity-preview-card {
+        padding: 20px !important;
+    }
+    
+    .opportunity-type {
+        font-size: 0.75rem !important;
+        padding: 4px 10px !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .opportunity-preview-card h4 {
+        font-size: 1.1rem !important;
+        margin-bottom: 10px !important;
+    }
+    
+    /* CTA section */
+    .cta-content h2 {
+        font-size: 1.5rem !important;
+    }
+    
+    .cta-content p {
+        font-size: 0.95rem !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .cta-buttons {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    
+    .cta-buttons a {
+        width: 100% !important;
+        text-align: center;
+    }
+    
+    /* ===== FOOTER ===== */
+    
+    .footer-content {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+    
+    .footer-section {
+        text-align: center;
+    }
+    
+    .footer-logo h3 {
+        font-size: 1.3rem !important;
+    }
+    
+    .footer-tagline {
+        font-size: 0.9rem !important;
+        margin: 10px 0 !important;
+    }
+    
+    .footer-social {
+        justify-content: center !important;
+        margin: 15px 0 !important;
+    }
+    
+    .footer-links {
+        margin-top: 10px !important;
+    }
+    
+    .footer-links li {
+        margin-bottom: 8px !important;
+    }
+    
+    .footer-contact li {
+        margin-bottom: 10px !important;
+        justify-content: center !important;
+        text-align: center;
+    }
+    
+    .footer-bottom {
+        flex-direction: column !important;
+        gap: 10px !important;
+        text-align: center;
+        padding: 20px var(--space-mobile) !important;
+    }
+    
+    #siteVersion {
+        font-size: 10px !important;
+        line-height: 1.4;
+    }
+    
+    /* ===== FORMS & MODALS ===== */
+    
+    /* Contact form */
+    .form-map-wrapper {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+    
+    .form-row {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+    
+    .form-group {
+        margin-bottom: 15px !important;
+    }
+    
+    /* Modals */
+    .modal-container {
+        width: 95% !important;
+        margin: 10px !important;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.3rem !important;
+    }
+    
+    /* ===== DYNAMIC DATA TABLES ===== */
+    
+    .data-table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .table-responsive {
+        font-size: 0.85rem;
+    }
+    
+    /* ===== NOTIFICATIONS ===== */
+    
+    .global-notification {
+        top: 10px !important;
+        right: 10px !important;
+        left: 10px !important;
+        width: calc(100% - 20px) !important;
+        max-width: none !important;
+    }
+    
+    /* ===== FIREBASE ADMIN CONTROLS ===== */
+    
+    .firebase-controls {
+        position: fixed;
+        bottom: 120px; /* Above admin buttons */
+        right: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .firebase-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+    }
+}
+
+/* ===== TABLET STYLES (768px - 1023px) ===== */
+@media (min-width: 768px) and (max-width: 1023px) {
+    html {
+        font-size: var(--font-tablet);
+    }
+    
+    .container {
+        padding: 0 var(--space-tablet);
+        max-width: 720px;
+    }
+    
+    /* ===== DYNAMIC CONTENT TABLET ADJUSTMENTS ===== */
+    
+    .admin-quick-access {
+        bottom: 20px;
+        left: 20px;
+        flex-direction: column;
+        max-width: 180px;
+    }
+    
+    .admin-btn {
+        font-size: 12px !important;
+        padding: 8px 12px !important;
+        justify-content: flex-start;
+    }
+    
+    .dynamic-stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+    
+    /* ===== HEADER & NAVIGATION ===== */
+    
+    .main-header {
+        padding: 15px var(--space-tablet) !important;
+    }
+    
+    .header-logo h1 {
+        font-size: 1.3rem !important;
+    }
+    
+    .cta-button-header {
+        padding: 10px 20px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .sidebar {
+        width: 320px !important;
+    }
+    
+    /* ===== HERO SECTION ===== */
+    
+    .hero-section {
+        min-height: 70vh !important;
+        padding: var(--space-tablet) !important;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem !important;
+        margin-bottom: 30px !important;
+    }
+    
+    .hero-buttons {
+        gap: 15px !important;
+    }
+    
+    /* ===== DYNAMIC CONTENT SECTIONS ===== */
+    
+    .section-header h2 {
+        font-size: 2rem !important;
+    }
+    
+    .section-subtitle {
+        font-size: 1.05rem !important;
+        margin-bottom: 30px !important;
+    }
+    
+    /* Services grid */
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 25px !important;
+    }
+    
+    .service-card {
+        padding: 25px !important;
+    }
+    
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    /* Intro section */
+    .intro-content {
+        gap: 40px !important;
+    }
+    
+    .intro-stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+        margin-top: 30px !important;
+    }
+    
+    /* Why choose us */
+    .why-content {
+        gap: 40px !important;
+    }
+    
+    .why-item {
+        padding: 25px !important;
+    }
+    
+    /* Opportunities preview */
+    .opportunities-preview-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 25px !important;
+    }
+    
+    /* ===== FOOTER ===== */
+    
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 40px !important;
+    }
+    
+    .footer-section:first-child {
+        grid-column: span 2;
+    }
+    
+    .footer-bottom {
+        padding: 25px var(--space-tablet) !important;
+    }
+    
+    /* ===== FORMS & MODALS ===== */
+    
+    .form-map-wrapper {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+    }
+    
+    .modal-container {
+        width: 90% !important;
+        max-width: 600px;
+    }
+}
+
+/* ===== DESKTOP STYLES (1024px - 1199px) ===== */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    html {
+        font-size: var(--font-desktop);
+    }
+    
+    .container {
+        padding: 0 var(--space-desktop);
+        max-width: 960px;
+    }
+    
+    /* ===== DYNAMIC CONTENT DESKTOP ADJUSTMENTS ===== */
+    
+    .admin-quick-access {
+        bottom: 30px;
+        left: 30px;
+    }
+    
+    .dynamic-stats {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 25px !important;
+    }
+    
+    /* ===== HEADER & NAVIGATION ===== */
+    
+    .main-header {
+        padding: 20px var(--space-desktop) !important;
+    }
+    
+    /* ===== DYNAMIC CONTENT SECTIONS ===== */
+    
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 30px !important;
+    }
+    
+    .intro-content {
+        gap: 50px !important;
+    }
+    
+    .intro-stats {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+    
+    .opportunities-preview-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 30px !important;
+    }
+    
+    /* ===== FOOTER ===== */
+    
+    .footer-content {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 50px !important;
+    }
+    
+    /* ===== FORMS & MODALS ===== */
+    
+    .form-map-wrapper {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 50px !important;
+    }
+    
+    .modal-container {
+        width: 80% !important;
+        max-width: 800px;
+    }
+}
+
+/* ===== WIDE DESKTOP STYLES (1200px and above) ===== */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+    
+    /* ===== DYNAMIC CONTENT WIDE DESKTOP ===== */
+    
+    .services-grid {
+        grid-template-columns: repeat(5, 1fr) !important;
+    }
+    
+    .opportunities-preview-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+    
+    /* Enhanced hover effects for desktop */
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    
+    .why-item:hover {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    }
+    
+    /* Admin controls hover effects */
+    .admin-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+    }
+}
+
+/* ===== TOUCH DEVICE OPTIMIZATIONS ===== */
+@media (hover: none) and (pointer: coarse) {
+    /* Improve touch targets for dynamic elements */
+    .service-card,
+    .opportunity-preview-card,
+    .why-item,
+    .admin-btn,
+    .filter-btn {
+        min-height: 44px;
+        min-width: 44px;
+        cursor: pointer;
+    }
+    
+    /* Remove hover effects */
+    .service-card:hover,
+    .why-item:hover,
+    .admin-btn:hover {
+        transform: none;
+    }
+    
+    /* Increase touchable area */
+    .sidebar-nav a,
+    .footer-links a {
+        padding: 12px 15px;
+    }
+    
+    /* Prevent zoom on input focus */
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+    }
+    
+    /* Better scrolling for dynamic content */
+    .dynamic-stats,
+    .services-grid,
+    .opportunities-preview-grid {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ===== HIGH-DPI / RETINA DISPLAYS ===== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Crisper borders for dynamic elements */
+    .service-card,
+    .opportunity-preview-card,
+    .admin-btn {
+        border-width: 0.5px;
+    }
+    
+    /* Sharper shadows */
+    .service-card,
+    .modal-container {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+    /* Dynamic content in dark mode */
+    .service-card,
+    .opportunity-preview-card,
+    .why-item {
+        background-color: #1e293b;
+        border-color: #334155;
+    }
+    
+    .service-card:hover {
+        border-color: #3b82f6;
+        background-color: #1e293b;
+    }
+    
+    .admin-btn {
+        background-color: #3b82f6;
+        color: white;
+    }
+    
+    .admin-btn.secondary {
+        background-color: #4b5563;
+    }
+    
+    .real-time-badge {
+        background-color: #10b981;
+        color: #ffffff;
+    }
+    
+    .dynamic-stat h3 {
+        color: #60a5fa;
+    }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+    /* Hide dynamic elements */
+    .admin-quick-access,
+    .dynamic-loading,
+    .real-time-badge,
+    .global-notification,
+    .admin-btn,
+    .hero-video {
+        display: none !important;
+    }
+    
+    /* Print-friendly colors */
+    body {
+        color: #000 !important;
+        background: #fff !important;
+    }
+    
+    .service-card,
+    .opportunity-preview-card {
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        break-inside: avoid;
+    }
+    
+    /* Hide interactive elements */
+    .cta-button-header,
+    .hero-buttons,
+    .footer-social,
+    .sidebar {
+        display: none !important;
+    }
+    
+    /* Show URLs after links */
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.9em;
+        color: #666;
+    }
+}
+
+/* ===== REDUCED MOTION PREFERENCES ===== */
+@media (prefers-reduced-motion: reduce) {
+    /* Disable animations for dynamic content */
+    .real-time-badge,
+    .dynamic-loading i,
+    .service-card,
+    .admin-btn,
+    .scroll-indicator {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .hero-video {
+        display: none;
+    }
+    
+    .hero-section {
+        background-image: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    }
+}
+
+/* ===== LANDSCAPE MODE ===== */
+@media (max-height: 600px) and (orientation: landscape) {
+    /* Compact layout for landscape */
+    .hero-section {
+        min-height: 80vh !important;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .section {
+        padding: 30px 0 !important;
+    }
+    
+    .service-card {
+        padding: 15px !important;
+    }
+    
+    .admin-quick-access {
+        bottom: 10px;
+        left: 10px;
+    }
+    
+    .admin-btn {
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+    }
+}
+
+/* ===== FOLDABLE DEVICES (Galaxy Fold, etc) ===== */
+@media (max-width: 280px) {
+    /* Extra small screens */
+    :root {
+        --space-mobile: 0.5rem;
+    }
+    
+    .hero-title {
+        font-size: 1.4rem !important;
+    }
+    
+    .service-card h3 {
+        font-size: 1rem !important;
+    }
+    
+    .admin-btn {
+        font-size: 10px !important;
+        padding: 4px 8px !important;
+    }
+    
+    .dynamic-stat h3 {
+        font-size: 1.3rem !important;
+    }
+}
+
+/* ===== IOS SAFARI SPECIFIC FIXES ===== */
+@supports (-webkit-touch-callout: none) {
+    .hero-section,
+    .sidebar {
+        height: -webkit-fill-available;
+    }
+    
+    /* Fix for 100vh issue on iOS */
+    .hero-section {
+        min-height: -webkit-fill-available;
+    }
+}
+
+/* ===== FIREFOX SPECIFIC FIXES ===== */
+@-moz-document url-prefix() {
+    .service-card,
+    .modal-container {
+        scrollbar-width: thin;
+        scrollbar-color: #3b82f6 #f1f5f9;
+    }
+}
+
+/* ===== WEBKIT SCROLLBAR STYLING ===== */
+@media (min-width: 768px) {
+    /* Custom scrollbar for dynamic content areas */
+    .modal-container::-webkit-scrollbar,
+    .sidebar::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .modal-container::-webkit-scrollbar-track,
+    .sidebar::-webkit-scrollbar-track {
+        background: #f1f5f9;
+        border-radius: 4px;
+    }
+    
+    .modal-container::-webkit-scrollbar-thumb,
+    .sidebar::-webkit-scrollbar-thumb {
+        background: #3b82f6;
+        border-radius: 4px;
+    }
+    
+    .modal-container::-webkit-scrollbar-thumb:hover,
+    .sidebar::-webkit-scrollbar-thumb:hover {
+        background: #2563eb;
+    }
+}
+
+/* ===== DYNAMIC DATA VISUALIZATION ===== */
+@media (min-width: 768px) {
+    /* Smooth animations for dynamic updates */
+    .dynamic-stat h3 {
+        transition: all 0.3s ease;
+    }
+    
+    .service-card .service-meta {
+        transition: opacity 0.3s ease;
+    }
+}
+
+/* ===== ACCESSIBILITY: HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+    .service-card,
+    .opportunity-preview-card,
+    .admin-btn {
+        border: 2px solid currentColor;
+    }
+    
+    .real-time-badge {
+        border: 1px solid currentColor;
+    }
+    
+    /* Ensure text is readable */
+    .dynamic-stat h3,
+    .service-card h3,
+    .opportunity-preview-card h4 {
+        color: #000;
+    }
+}
+
+/* ===== ACCESSIBILITY: REDUCED TRANSPARENCY ===== */
+@media (prefers-reduced-transparency: reduce) {
+    .hero-overlay,
+    .service-card,
+    .modal-backdrop {
+        opacity: 1;
+        backdrop-filter: none;
+    }
+    
+    .real-time-badge {
+        opacity: 1;
+    }
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+/* Only load complex animations on devices that can handle them */
+@media (prefers-reduced-data: no-preference) and (min-width: 1024px) {
+    .service-card,
+    .admin-btn {
+        will-change: transform;
+    }
+}
+
+/* ===== DYNAMIC GRID ADJUSTMENTS ===== */
+/* Auto-adjust grid based on container size */
+.services-grid {
+    display: grid;
+    gap: 20px;
+}
+
+@container (min-width: 500px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@container (min-width: 800px) {
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@container (min-width: 1100px) {
+    .services-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@container (min-width: 1400px) {
+    .services-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+/* ===== END OF RESPONSIVE STYLES ===== */
