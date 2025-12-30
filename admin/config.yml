@@ -19,9 +19,15 @@ site_url: "https://steady-starship-7b39b1.netlify.app"
 display_url: "https://steady-starship-7b39b1.netlify.app"
 logo_url: "https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png"
 
-# Netlify Identity Configuration
+# Enable local backend for development (optional)
 local_backend: false
+
+# Internationalization
 locale: "en"
+i18n:
+  structure: "multiple_folders"
+  locales: ["en", "rw"]
+  default_locale: "en"
 
 collections:
   - name: "services"
@@ -34,6 +40,7 @@ collections:
     slug: "{{slug}}"
     identifier_field: "title_en"
     summary: "{{title_en}} - {{title_rw}}"
+    sortable_fields: ["order", "updated"]
     
     editor:
       preview: false
