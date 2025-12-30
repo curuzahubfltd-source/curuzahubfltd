@@ -1,166 +1,238 @@
-# ============================================
-# NETLIFY / DECAP CMS CONFIGURATION
-# Project: CURUZA HUB F LTD
-# Admin URL: /admin
-# ============================================
-
 backend:
   name: git-gateway
+  repo: CuruzaHub/curuza-hub-website
   branch: main
+  base_url: https://steady-starship-7b39b1.netlify.app
+  auth_scope: repo
   commit_messages:
-    create: 'Create {{collection}} “{{slug}}”'
-    update: 'Update {{collection}} “{{slug}}”'
-    delete: 'Delete {{collection}} “{{slug}}”'
-    uploadMedia: '[skip ci] Upload “{{path}}”'
-    deleteMedia: '[skip ci] Delete “{{path}}”'
+    create: "Create {{collection}} '{{slug}}'"
+    update: "Update {{collection}} '{{slug}}'"
+    delete: "Delete {{collection}} '{{slug}}'"
+    uploadMedia: "Upload '{{path}}'"
+    deleteMedia: "Delete '{{path}}'"
 
-# ============================================
-# AUTHENTICATION & WORKFLOW
-# ============================================
-
-publish_mode: editorial_workflow
-locale: "en"
-
-# ============================================
-# MEDIA SETTINGS
-# ============================================
-
-media_folder: "uploads"
+media_folder: "static/uploads"
 public_folder: "/uploads"
 
-# ============================================
-# SITE URL (VERY IMPORTANT)
-# ============================================
-
+publish_mode: editorial_workflow
 site_url: "https://steady-starship-7b39b1.netlify.app"
 display_url: "https://steady-starship-7b39b1.netlify.app"
 logo_url: "https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png"
 
-# ============================================
-# COLLECTIONS
-# ============================================
+# Netlify Identity Configuration
+local_backend: false
+locale: "en"
 
 collections:
-
-  # ============================================
-  # SERVICES
-  # ============================================
   - name: "services"
     label: "Services"
+    label_singular: "Service"
+    description: "Manage all services offered by Curuza Hub"
     folder: "content/services"
     create: true
     delete: true
     slug: "{{slug}}"
     identifier_field: "title_en"
-
+    summary: "{{title_en}} - {{title_rw}}"
+    
     editor:
       preview: false
-
+    
     fields:
-      - { label: "Service ID", name: "id", widget: "string", required: true }
-      - { label: "Icon Class (Font Awesome)", name: "icon", widget: "string", default: "fas fa-handshake" }
+      - {label: "Service ID", name: "id", widget: "string", required: true, pattern: ["^[a-z0-9-]+$", "Lowercase letters, numbers, and hyphens only"]}
+      - {label: "Icon Class (Font Awesome)", name: "icon", widget: "string", default: "fas fa-handshake", hint: "e.g., fas fa-handshake, fas fa-users, fas fa-chart-line"}
+      
+      # English Content
+      - {label: "Title (English)", name: "title_en", widget: "string", required: true}
+      - {label: "Description (English)", name: "description_en", widget: "text", required: true}
+      - {label: "Detailed Info (English)", name: "details_en", widget: "markdown", required: false}
+      
+      # Kinyarwanda Content
+      - {label: "Title (Kinyarwanda)", name: "title_rw", widget: "string", required: true}
+      - {label: "Description (Kinyarwanda)", name: "description_rw", widget: "text", required: true}
+      - {label: "Detailed Info (Kinyarwanda)", name: "details_rw", widget: "markdown", required: false}
+      
+      # Visual & Status
+      - {label: "Featured Image", name: "featured_image", widget: "image", required: false, hint: "URL or uploaded image for this service"}
+      - {label: "Display Order", name: "order", widget: "number", value_type: "int", default: 1, min: 1, max: 20}
+      - {label: "Active", name: "active", widget: "boolean", default: true}
+      - {label: "Featured on Homepage", name: "featured", widget: "boolean", default: false}
+      
+      # Metadata
+      - {label: "Last Updated", name: "updated", widget: "datetime", format: "YYYY-MM-DD HH:mm", date_format: "YYYY-MM-DD", time_format: "HH:mm", required: false}
 
-      - { label: "Title (English)", name: "title_en", widget: "string", required: true }
-      - { label: "Description (English)", name: "description_en", widget: "text", required: true }
-      - { label: "Details (English)", name: "details_en", widget: "markdown", required: false }
-
-      - { label: "Title (Kinyarwanda)", name: "title_rw", widget: "string", required: true }
-      - { label: "Description (Kinyarwanda)", name: "description_rw", widget: "text", required: true }
-      - { label: "Details (Kinyarwanda)", name: "details_rw", widget: "markdown", required: false }
-
-      - { label: "Featured Image", name: "featured_image", widget: "image", required: false }
-      - { label: "Order", name: "order", widget: "number", default: 1 }
-      - { label: "Active", name: "active", widget: "boolean", default: true }
-      - { label: "Featured", name: "featured", widget: "boolean", default: false }
-
-      - { label: "Last Updated", name: "updated", widget: "datetime", required: false }
-
-  # ============================================
-  # OPPORTUNITIES
-  # ============================================
   - name: "opportunities"
     label: "Opportunities"
+    label_singular: "Opportunity"
+    description: "Job, Business & Investment Opportunities"
     folder: "content/opportunities"
     create: true
     delete: true
     slug: "{{slug}}"
-
+    sortable_fields: ["expiry_date", "publish_date", "title"]
+    summary: "{{title}} ({{type}} - {{status}})"
+    
     editor:
       preview: false
-
+    
     fields:
-      - { label: "Opportunity ID", name: "id", widget: "string", required: true }
-      - { label: "Title", name: "title", widget: "string", required: true }
-
-      - label: "Type"
+      - {label: "Opportunity ID", name: "id", widget: "string", required: true, pattern: ["^[a-z0-9-]+$", "Lowercase letters, numbers, and hyphens only"]}
+      - {label: "Title", name: "title", widget: "string", required: true}
+      
+      # Type Selection
+      - label: "Opportunity Type"
         name: "type"
         widget: "select"
+        required: true
         options:
-          - { label: "Job", value: "job" }
-          - { label: "Business", value: "business" }
-          - { label: "Investment", value: "investment" }
-          - { label: "Partnership", value: "partnership" }
-
-      - { label: "Description", name: "description", widget: "markdown", required: true }
-      - { label: "Requirements", name: "requirements", widget: "list", required: false }
-      - { label: "Benefits", name: "benefits", widget: "list", required: false }
-
-      - { label: "Location", name: "location", widget: "string", default: "Kigali, Rwanda" }
-      - { label: "Contact Email", name: "contact_email", widget: "string", required: false }
-      - { label: "Contact Phone", name: "contact_phone", widget: "string", required: false }
-
+          - {label: "🏢 Job Opportunity", value: "job"}
+          - {label: "💼 Business Opportunity", value: "business"}
+          - {label: "💰 Investment Opportunity", value: "investment"}
+          - {label: "🤝 Partnership", value: "partnership"}
+      
+      # Content
+      - {label: "Description", name: "description", widget: "markdown", required: true}
+      - {label: "Requirements", name: "requirements", widget: "list", required: false, field: {label: "Requirement", name: "item", widget: "string"}}
+      - {label: "Benefits", name: "benefits", widget: "list", required: false, field: {label: "Benefit", name: "item", widget: "string"}}
+      
+      # Details
+      - {label: "Location", name: "location", widget: "string", default: "Kigali, Rwanda"}
+      - {label: "Company/Organization", name: "company", widget: "string", required: false}
+      - {label: "Contact Email", name: "contact_email", widget: "string", required: false, pattern: ["[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}", "Must be a valid email address"]}
+      - {label: "Contact Phone", name: "contact_phone", widget: "string", required: false}
+      
+      # Status & Dates
       - label: "Status"
         name: "status"
         widget: "select"
         default: "active"
         options:
-          - { label: "Active", value: "active" }
-          - { label: "Closed", value: "closed" }
+          - {label: "✅ Active", value: "active"}
+          - {label: "⏳ Coming Soon", value: "coming-soon"}
+          - {label: "❌ Closed", value: "closed"}
+          - {label: "📋 Filled", value: "filled"}
+      
+      - {label: "Publish Date", name: "publish_date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, default: ""}
+      - {label: "Expiry Date", name: "expiry_date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false}
+      
+      # Visual
+      - {label: "Featured Image", name: "featured_image", widget: "image", required: false}
+      - {label: "External Link", name: "external_link", widget: "string", required: false, hint: "Link to external application or details page"}
 
-      - { label: "Publish Date", name: "publish_date", widget: "datetime", required: false }
-      - { label: "Expiry Date", name: "expiry_date", widget: "datetime", required: false }
-
-      - { label: "Featured Image", name: "featured_image", widget: "image", required: false }
-      - { label: "External Link", name: "external_link", widget: "string", required: false }
-
-  # ============================================
-  # STATIC PAGES
-  # ============================================
   - name: "pages"
-    label: "Pages"
-    delete: false
+    label: "Pages Content"
+    label_singular: "Page"
+    description: "Static page content (About, Profile, Contact)"
+    folder: "content/pages"
     create: false
-
+    delete: false
+    
     files:
-
       - name: "about"
-        label: "About Page"
+        label: "About Us Page"
         file: "content/pages/about.json"
         fields:
-          - { label: "Title", name: "title", widget: "string" }
-          - { label: "Content (EN)", name: "content_en", widget: "markdown" }
-          - { label: "Content (RW)", name: "content_rw", widget: "markdown" }
+          - {label: "Page Title", name: "page_title", widget: "string", default: "About Curuza Hub"}
+          
+          # English Sections
+          - label: "English Content"
+            name: "en"
+            widget: "object"
+            fields:
+              - {label: "Overview", name: "overview", widget: "markdown", required: true}
+              - {label: "Mission Statement", name: "mission", widget: "text", required: true}
+              - {label: "Vision Statement", name: "vision", widget: "text", required: true}
+              - {label: "Core Values", name: "values", widget: "list", required: false, field: {label: "Value", name: "item", widget: "string"}}
+              - {label: "Strategic Objective", name: "objective", widget: "text", required: true}
+              - {label: "Problem Statement", name: "problem", widget: "markdown", required: true}
+              - {label: "Our Solution", name: "solution", widget: "markdown", required: true}
+          
+          # Kinyarwanda Sections
+          - label: "Kinyarwanda Content"
+            name: "rw"
+            widget: "object"
+            fields:
+              - {label: "Overview (Kinyarwanda)", name: "overview", widget: "markdown", required: true}
+              - {label: "Mission (Kinyarwanda)", name: "mission", widget: "text", required: true}
+              - {label: "Vision (Kinyarwanda)", name: "vision", widget: "text", required: true}
+              - {label: "Core Values (Kinyarwanda)", name: "values", widget: "list", required: false, field: {label: "Value", name: "item", widget: "string"}}
+              - {label: "Objective (Kinyarwanda)", name: "objective", widget: "text", required: true}
+              - {label: "Problem (Kinyarwanda)", name: "problem", widget: "markdown", required: true}
+              - {label: "Solution (Kinyarwanda)", name: "solution", widget: "markdown", required: true}
+          
+          # Metadata
+          - {label: "Last Updated", name: "last_updated", widget: "datetime", format: "YYYY-MM-DD HH:mm", required: false}
+          - {label: "About Image URL", name: "about_image", widget: "image", required: false, hint: "Image displayed on About page"}
 
       - name: "profile"
-        label: "Company Profile"
+        label: "Company Profile Page"
         file: "content/pages/profile.json"
         fields:
-          - { label: "Company Name", name: "company", widget: "string" }
-          - { label: "TIN", name: "tin", widget: "string" }
-          - { label: "Business Description", name: "description", widget: "markdown" }
+          - {label: "Page Title", name: "page_title", widget: "string", default: "Company Profile"}
+          
+          # Company Information
+          - label: "Company Details"
+            name: "company_info"
+            widget: "object"
+            fields:
+              - {label: "Legal Name", name: "legal_name", widget: "string", default: "CURUZA HUB F LTD"}
+              - {label: "TIN Number", name: "tin", widget: "string", default: "150563319"}
+              - {label: "Establishment Year", name: "established", widget: "string", default: "2025"}
+              - {label: "Business Type", name: "business_type", widget: "string", default: "Business Connectivity & Sales Consultancy"}
+          
+          # Business Information
+          - label: "Business Details"
+            name: "business_details"
+            widget: "object"
+            fields:
+              - {label: "Nature of Business", name: "nature", widget: "markdown", required: true}
+              - {label: "Business Model", name: "model", widget: "markdown", required: true}
+              - {label: "Target Clients", name: "target_clients", widget: "markdown", required: true}
+              - {label: "Growth Strategy", name: "growth_strategy", widget: "markdown", required: true}
+              - {label: "Partnership Opportunities", name: "partnerships", widget: "markdown", required: true}
+          
+          # Documents
+          - label: "Documents"
+            name: "documents"
+            widget: "object"
+            fields:
+              - {label: "Profile PDF URL", name: "profile_pdf", widget: "string", required: false, hint: "Link to downloadable company profile PDF"}
+              - {label: "Last Updated", name: "last_updated", widget: "datetime", format: "YYYY-MM-DD HH:mm", required: false}
 
       - name: "contact"
-        label: "Contact Page"
+        label: "Contact Information"
         file: "content/pages/contact.json"
         fields:
-          - { label: "Address", name: "address", widget: "string" }
-          - { label: "Phone", name: "phone", widget: "string" }
-          - { label: "Email", name: "email", widget: "string" }
-          - { label: "Map URL", name: "map", widget: "string", required: false }
-
-# ============================================
-# EDITOR SETTINGS
-# ============================================
-
-editor:
-  preview: false
+          - {label: "Page Title", name: "page_title", widget: "string", default: "Contact Us"}
+          
+          # Contact Details
+          - label: "Contact Information"
+            name: "contact_info"
+            widget: "object"
+            fields:
+              - {label: "Address", name: "address", widget: "string", default: "Kigali / Nyarugenge, Kigali, Rwanda"}
+              - {label: "Primary Phone", name: "phone_primary", widget: "string", default: "+250 785 439 453"}
+              - {label: "Secondary Phone", name: "phone_secondary", widget: "string", default: "+250 728 083 403"}
+              - {label: "Email Address", name: "email", widget: "string", default: "curuzahubfltd@gmail.com"}
+              - {label: "Website", name: "website", widget: "string", default: "https://curuzahubfltd.netlify.app"}
+              - {label: "Business Hours", name: "business_hours", widget: "string", default: "Monday - Friday: 8:00 AM - 5:00 PM"}
+          
+          # Social Media Links
+          - label: "Social Media"
+            name: "social_media"
+            widget: "object"
+            fields:
+              - {label: "Facebook URL", name: "facebook", widget: "string", required: false}
+              - {label: "Twitter URL", name: "twitter", widget: "string", required: false}
+              - {label: "LinkedIn URL", name: "linkedin", widget: "string", required: false}
+              - {label: "Instagram URL", name: "instagram", widget: "string", required: false}
+              - {label: "WhatsApp Number", name: "whatsapp", widget: "string", required: false}
+          
+          # Map & Location
+          - label: "Location Map"
+            name: "map"
+            widget: "object"
+            fields:
+              - {label: "Google Maps Embed URL", name: "google_maps_embed", widget: "string", required: false, hint: "Embed URL from Google Maps"}
+              - {label: "Latitude", name: "latitude", widget: "string", required: false}
+              - {label: "Longitude", name: "longitude", widget: "string", required: false}
