@@ -7,6 +7,8 @@
     <!-- Netlify Identity Widget -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png">
+    
     <style>
         :root {
             --primary-blue: #1e40af;
@@ -14,10 +16,16 @@
             --accent-gold: #f59e0b;
             --success-green: #10b981;
             --danger-red: #ef4444;
+            --warning-orange: #f97316;
             --gray-50: #f9fafb;
             --gray-100: #f3f4f6;
             --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
             --gray-700: #374151;
+            --gray-800: #1f2937;
             --gray-900: #111827;
         }
         
@@ -29,32 +37,42 @@
         }
         
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            color: var(--gray-800);
         }
         
+        /* Admin Container */
         .admin-container {
             width: 100%;
-            max-width: 480px;
+            max-width: 500px;
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0, 46, 109, 0.15);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 46, 109, 0.15);
             overflow: hidden;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.5s ease;
         }
         
         .admin-container:hover {
             transform: translateY(-5px);
+            box-shadow: 0 30px 80px rgba(0, 46, 109, 0.2);
         }
         
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Admin Header */
         .admin-header {
             background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
             color: white;
-            padding: 35px 30px;
+            padding: 40px 30px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -63,10 +81,10 @@
         .admin-header::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200px;
-            height: 200px;
+            top: -100px;
+            right: -100px;
+            width: 250px;
+            height: 250px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
         }
@@ -74,55 +92,70 @@
         .admin-header::after {
             content: '';
             position: absolute;
-            bottom: -30%;
-            left: -30%;
-            width: 150px;
-            height: 150px;
+            bottom: -80px;
+            left: -80px;
+            width: 180px;
+            height: 180px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 50%;
         }
         
         .logo-admin {
-            width: 90px;
+            width: 100px;
             height: auto;
             margin: 0 auto 20px;
             display: block;
-            filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.2));
             position: relative;
-            z-index: 1;
+            z-index: 2;
         }
         
         .admin-header h1 {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 800;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         .admin-header p {
-            font-size: 15px;
+            font-size: 16px;
             opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            font-weight: 300;
+        }
+        
+        /* Admin Body */
+        .admin-body {
+            padding: 40px 35px;
             position: relative;
             z-index: 1;
         }
         
-        .admin-body {
-            padding: 40px 35px;
-        }
-        
-        /* Loading States */
+        /* Loading Indicator */
         .loading-indicator {
             display: none;
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             color: var(--secondary-blue);
+            background: var(--gray-50);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
         
         .loading-indicator i {
-            font-size: 24px;
-            margin-bottom: 10px;
-            animation: spin 1s linear infinite;
+            font-size: 32px;
+            margin-bottom: 15px;
+            display: block;
+            animation: spin 1.5s linear infinite;
         }
         
         @keyframes spin {
@@ -130,96 +163,155 @@
             100% { transform: rotate(360deg); }
         }
         
-        /* Login Info */
-        .login-info-box {
-            background: #eff6ff;
-            border-left: 4px solid var(--secondary-blue);
-            padding: 18px;
-            margin-bottom: 30px;
-            border-radius: 0 10px 10px 0;
-            font-size: 14px;
-            color: var(--primary-blue);
-            animation: slideIn 0.5s ease;
+        /* Error Message */
+        .error-message {
+            display: none;
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            color: var(--danger-red);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+            border-left: 4px solid var(--danger-red);
+            animation: slideInLeft 0.5s ease;
         }
         
-        @keyframes slideIn {
+        @keyframes slideInLeft {
             from { transform: translateX(-20px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
         
+        .error-message i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        /* Login Info Box */
+        .login-info-box {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border-left: 4px solid var(--secondary-blue);
+            padding: 22px;
+            margin-bottom: 35px;
+            border-radius: 0 12px 12px 0;
+            font-size: 15px;
+            color: var(--primary-blue);
+            animation: slideIn 0.6s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-30px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
         .login-info-box i {
-            margin-right: 10px;
-            color: var(--secondary-blue);
-        }
-        
-        /* Login Methods */
-        .login-method {
-            margin-bottom: 30px;
-        }
-        
-        .method-title {
-            font-size: 17px;
-            font-weight: 600;
-            color: var(--gray-900);
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .method-title i {
             margin-right: 12px;
             color: var(--secondary-blue);
             font-size: 20px;
         }
         
-        /* Buttons */
-        .netlify-identity-button {
-            width: 100%;
-            padding: 16px;
-            background: var(--secondary-blue);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        /* Login Methods */
+        .login-method {
+            margin-bottom: 35px;
+            animation: fadeInUp 0.7s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .method-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gray-100);
+        }
+        
+        .method-title i {
+            margin-right: 15px;
+            color: var(--secondary-blue);
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+            background: var(--gray-50);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Buttons */
+        .netlify-identity-button {
+            width: 100%;
+            padding: 18px;
+            background: var(--secondary-blue);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            box-shadow: 0 6px 15px rgba(59, 130, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .netlify-identity-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
         }
         
         .netlify-identity-button:hover {
             background: var(--primary-blue);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(59, 130, 246, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(59, 130, 246, 0.4);
+        }
+        
+        .netlify-identity-button:hover::before {
+            left: 100%;
         }
         
         .netlify-identity-button i {
-            margin-right: 12px;
-            font-size: 18px;
+            margin-right: 15px;
+            font-size: 20px;
         }
         
         .google-button {
             background: #db4437;
-            box-shadow: 0 4px 6px rgba(219, 68, 55, 0.3);
+            box-shadow: 0 6px 15px rgba(219, 68, 55, 0.3);
         }
         
         .google-button:hover {
             background: #c23321;
-            box-shadow: 0 8px 15px rgba(219, 68, 55, 0.4);
+            box-shadow: 0 12px 25px rgba(219, 68, 55, 0.4);
         }
         
         /* Separator */
         .separator {
             text-align: center;
-            margin: 30px 0;
+            margin: 35px 0;
             position: relative;
-            color: var(--gray-700);
-            font-size: 14px;
-            font-weight: 500;
+            color: var(--gray-600);
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .separator::before {
@@ -228,156 +320,234 @@
             top: 50%;
             left: 0;
             right: 0;
-            height: 1px;
-            background: var(--gray-200);
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gray-300), transparent);
         }
         
         .separator span {
             background: white;
-            padding: 0 20px;
+            padding: 0 25px;
             position: relative;
             z-index: 1;
         }
         
         /* Role Management */
         .role-management {
-            background: #fffbeb;
-            border: 1px solid #fbbf24;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 25px;
-            font-size: 14px;
-            color: #92400e;
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border: 2px solid var(--accent-gold);
+            border-radius: 14px;
+            padding: 25px;
+            margin-top: 30px;
+            font-size: 15px;
+            color: var(--gray-800);
+            animation: fadeIn 0.8s ease;
         }
         
         .role-management h4 {
-            color: #d97706;
-            margin-bottom: 10px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
+            font-size: 18px;
+            font-weight: 700;
         }
         
         .role-management h4 i {
-            margin-right: 8px;
+            margin-right: 12px;
+            font-size: 22px;
+            background: rgba(245, 158, 11, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .role-list {
-            margin-top: 12px;
-            padding-left: 20px;
+            margin-top: 15px;
+            padding-left: 25px;
         }
         
         .role-list li {
-            margin-bottom: 8px;
-            line-height: 1.5;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 10px;
         }
         
-        /* Admin Dashboard (Hidden by default) */
+        .role-list li::before {
+            content: '•';
+            color: var(--accent-gold);
+            font-size: 20px;
+            position: absolute;
+            left: -15px;
+            top: -2px;
+        }
+        
+        .role-list strong {
+            color: var(--gray-900);
+            font-weight: 700;
+        }
+        
+        /* Admin Dashboard */
         .admin-dashboard {
             display: none;
-            animation: fadeIn 0.5s ease;
+            animation: scaleIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
         
         .dashboard-header {
             background: linear-gradient(135deg, var(--success-green), #34d399);
             color: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
         }
         
         .welcome-message {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 15px;
+            gap: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
         }
         
         .welcome-message i {
-            font-size: 24px;
+            font-size: 32px;
+            background: rgba(255, 255, 255, 0.2);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .welcome-message h2 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .user-info {
+            position: relative;
+            z-index: 1;
         }
         
         .user-badge {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
         }
         
+        .user-badge:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: scale(1.05);
+        }
+        
+        /* Dashboard Actions */
         .dashboard-actions {
             display: grid;
-            gap: 15px;
-            margin-top: 25px;
+            gap: 18px;
+            margin-top: 30px;
         }
         
         .dashboard-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 14px;
+            padding: 18px;
             background: var(--secondary-blue);
             color: white;
             text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: all 0.3s;
+            border-radius: 14px;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 16px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.7s ease;
         }
         
         .dashboard-btn:hover {
             background: var(--primary-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .dashboard-btn:hover::before {
+            left: 100%;
         }
         
         .dashboard-btn i {
-            margin-right: 10px;
-            font-size: 18px;
+            margin-right: 15px;
+            font-size: 20px;
+            width: 30px;
+            text-align: center;
         }
         
         .btn-admin {
-            background: var(--primary-blue);
+            background: linear-gradient(135deg, var(--primary-blue), #4f46e5);
+        }
+        
+        .btn-admin:hover {
+            background: linear-gradient(135deg, #3730a3, #4338ca);
         }
         
         .btn-logout {
-            background: var(--gray-700);
+            background: linear-gradient(135deg, var(--gray-700), var(--gray-800));
         }
         
-        /* Error States */
-        .error-message {
-            display: none;
-            background: #fee2e2;
-            color: var(--danger-red);
-            padding: 18px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-            animation: shake 0.5s ease;
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+        .btn-logout:hover {
+            background: linear-gradient(135deg, var(--gray-800), var(--gray-900));
         }
         
         /* Footer */
         .admin-footer {
             text-align: center;
-            padding: 25px;
-            font-size: 13px;
-            color: var(--gray-700);
+            padding: 30px;
+            font-size: 14px;
+            color: var(--gray-600);
             border-top: 1px solid var(--gray-200);
             background: var(--gray-50);
         }
@@ -385,19 +555,81 @@
         .secure-note {
             display: inline-flex;
             align-items: center;
-            margin-top: 10px;
+            margin-top: 15px;
             color: var(--success-green);
-            font-weight: 500;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 50px;
         }
         
         .secure-note i {
-            margin-right: 6px;
+            margin-right: 10px;
+            font-size: 16px;
         }
         
-        /* Mobile Responsive */
-        @media (max-width: 520px) {
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: white;
+            color: var(--gray-800);
+            padding: 20px 25px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            animation: slideInRight 0.3s ease;
+            border-left: 5px solid var(--success-green);
+            max-width: 400px;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+        
+        .notification i {
+            font-size: 24px;
+            color: var(--success-green);
+        }
+        
+        .notification.error {
+            border-left-color: var(--danger-red);
+        }
+        
+        .notification.error i {
+            color: var(--danger-red);
+        }
+        
+        .notification.warning {
+            border-left-color: var(--warning-orange);
+        }
+        
+        .notification.warning i {
+            color: var(--warning-orange);
+        }
+        
+        .notification.info {
+            border-left-color: var(--secondary-blue);
+        }
+        
+        .notification.info i {
+            color: var(--secondary-blue);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 550px) {
             .admin-container {
-                border-radius: 12px;
+                border-radius: 16px;
                 max-width: 100%;
             }
             
@@ -410,28 +642,63 @@
             }
             
             .admin-header h1 {
+                font-size: 26px;
+            }
+            
+            .dashboard-header {
+                padding: 25px 20px;
+            }
+            
+            .welcome-message h2 {
                 font-size: 24px;
+            }
+            
+            .notification {
+                left: 20px;
+                right: 20px;
+                max-width: none;
             }
         }
         
-        @media (max-width: 380px) {
+        @media (max-width: 400px) {
             .admin-body {
                 padding: 25px 20px;
             }
             
-            .login-method {
-                margin-bottom: 25px;
+            .admin-header h1 {
+                font-size: 24px;
             }
             
-            .netlify-identity-button {
-                padding: 14px;
+            .netlify-identity-button,
+            .dashboard-btn {
+                padding: 16px;
                 font-size: 15px;
+            }
+            
+            .method-title {
+                font-size: 16px;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            .admin-container {
+                box-shadow: none;
+                max-width: 100%;
+                border: 1px solid var(--gray-300);
+            }
+            
+            .netlify-identity-button,
+            .dashboard-btn,
+            .btn-logout {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
     <div class="admin-container">
+        <!-- Admin Header -->
         <div class="admin-header">
             <img src="https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png" 
                  alt="Curuza Hub Logo" 
@@ -440,6 +707,7 @@
             <p>CURUZA HUB F LTD | Content Management System</p>
         </div>
 
+        <!-- Admin Body -->
         <div class="admin-body">
             <!-- Loading Indicator -->
             <div class="loading-indicator" id="loadingIndicator">
@@ -453,14 +721,14 @@
                 <p id="errorText">Authentication error occurred</p>
             </div>
 
-            <!-- Login Info -->
-            <div class="login-info-box" id="loginInfo">
-                <i class="fas fa-shield-alt"></i>
-                <strong>Restricted Access:</strong> This portal is for authorized Admins & Editors only.
-            </div>
-
             <!-- Login Section (Default) -->
             <div id="loginSection">
+                <!-- Login Info -->
+                <div class="login-info-box" id="loginInfo">
+                    <i class="fas fa-shield-alt"></i>
+                    <strong>Restricted Access:</strong> This portal is for authorized Admins & Editors only.
+                </div>
+
                 <!-- Email Login -->
                 <div class="login-method">
                     <div class="method-title">
@@ -469,11 +737,12 @@
                     <button class="netlify-identity-button" onclick="netlifyIdentity.open('login')">
                         <i class="fas fa-sign-in-alt"></i> Sign In / Sign Up
                     </button>
-                    <p style="font-size: 13px; color: var(--gray-700); margin-top: 10px;">
+                    <p style="font-size: 14px; color: var(--gray-600); margin-top: 12px; line-height: 1.5;">
                         Use your registered email address. New accounts require admin approval.
                     </p>
                 </div>
 
+                <!-- Separator -->
                 <div class="separator">
                     <span>OR CONTINUE WITH</span>
                 </div>
@@ -486,7 +755,7 @@
                     <button class="netlify-identity-button google-button" onclick="netlifyIdentity.open('login')">
                         <i class="fab fa-google"></i> Google Sign In
                     </button>
-                    <p style="font-size: 13px; color: var(--gray-700); margin-top: 10px;">
+                    <p style="font-size: 14px; color: var(--gray-600); margin-top: 12px; line-height: 1.5;">
                         One-click authentication with your Google account.
                     </p>
                 </div>
@@ -496,53 +765,58 @@
                     <h4><i class="fas fa-user-cog"></i> Role-Based Access Control</h4>
                     <p>Different permissions for different roles:</p>
                     <ul class="role-list">
-                        <li><strong>Editor:</strong> Can create, edit, and delete content</li>
-                        <li><strong>Admin:</strong> Full access + user management + role assignment</li>
+                        <li><strong>Editor:</strong> Can create, edit, and delete content in assigned sections</li>
+                        <li><strong>Admin:</strong> Full access + user management + role assignment + system settings</li>
                     </ul>
-                    <p style="margin-top: 12px; font-style: italic;">
-                        <i class="fas fa-info-circle"></i> To request access or role changes, contact the site owner.
+                    <p style="margin-top: 15px; font-style: italic; color: var(--gray-700);">
+                        <i class="fas fa-info-circle"></i> To request access or role changes, contact the site administrator.
                     </p>
                 </div>
             </div>
 
             <!-- Admin Dashboard (Hidden by default) -->
             <div class="admin-dashboard" id="adminDashboard">
+                <!-- Dashboard Header -->
                 <div class="dashboard-header">
                     <div class="welcome-message">
                         <i class="fas fa-check-circle"></i>
                         <h2 id="welcomeText">Welcome Back!</h2>
                     </div>
-                    <p>You are logged in as: <span id="userRole" class="user-badge">Loading...</span></p>
+                    <div class="user-info">
+                        <p>You are logged in as: <span id="userRole" class="user-badge">Loading...</span></p>
+                    </div>
                 </div>
 
+                <!-- Dashboard Actions -->
                 <div class="dashboard-actions">
-                    <a href="/admin/#/collections" class="dashboard-btn">
+                    <a href="/admin/#/collections" class="dashboard-btn" target="_blank">
                         <i class="fas fa-columns"></i> CMS Dashboard
                     </a>
                     
-                    <a href="/admin/#/collections/services" class="dashboard-btn">
+                    <a href="/admin/#/collections/services" class="dashboard-btn" target="_blank">
                         <i class="fas fa-concierge-bell"></i> Manage Services
                     </a>
                     
-                    <a href="/admin/#/collections/opportunities" class="dashboard-btn">
+                    <a href="/admin/#/collections/opportunities" class="dashboard-btn" target="_blank">
                         <i class="fas fa-briefcase"></i> Manage Opportunities
                     </a>
                     
-                    <a href="/admin/#/collections/pages" class="dashboard-btn">
+                    <a href="/admin/#/collections/pages" class="dashboard-btn" target="_blank">
                         <i class="fas fa-file-alt"></i> Edit Pages
                     </a>
                     
-                    <button class="dashboard-btn btn-admin" onclick="checkUserRole()">
+                    <button class="dashboard-btn btn-admin" onclick="checkUserRole(true)">
                         <i class="fas fa-user-cog"></i> Check My Role
                     </button>
                     
-                    <button class="dashboard-btn btn-logout" onclick="netlifyIdentity.logout()">
+                    <button class="dashboard-btn btn-logout" onclick="handleLogout()">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </button>
                 </div>
             </div>
         </div>
 
+        <!-- Admin Footer -->
         <div class="admin-footer">
             <p>CURUZA HUB F LTD &copy; 2025 | Internal Management System</p>
             <div class="secure-note">
@@ -553,7 +827,9 @@
 
     <!-- Netlify Identity & Custom Auth Logic -->
     <script>
-        // DOM Elements
+        // ============================================
+        // DOM ELEMENTS
+        // ============================================
         const loadingIndicator = document.getElementById('loadingIndicator');
         const errorMessage = document.getElementById('errorMessage');
         const errorText = document.getElementById('errorText');
@@ -563,114 +839,226 @@
         const welcomeText = document.getElementById('welcomeText');
         const userRole = document.getElementById('userRole');
         
-        // Role checking function
-        async function checkUserRole() {
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+        
+        // Parse Netlify metadata (handles string and object formats)
+        function parseNetlifyMetadata(metadata) {
+            if (!metadata) return {};
+            
+            console.log('Raw metadata:', metadata);
+            console.log('Metadata type:', typeof metadata);
+            
+            // If it's already an object, return it
+            if (typeof metadata === 'object' && metadata !== null) {
+                return metadata;
+            }
+            
+            // If it's a string, try to parse it
+            if (typeof metadata === 'string') {
+                try {
+                    // Clean the string first
+                    let cleanStr = metadata.trim();
+                    
+                    // Remove surrounding quotes if present
+                    if (cleanStr.startsWith('"') && cleanStr.endsWith('"')) {
+                        cleanStr = cleanStr.slice(1, -1);
+                    }
+                    
+                    // Unescape escaped quotes
+                    cleanStr = cleanStr.replace(/\\"/g, '"');
+                    cleanStr = cleanStr.replace(/\\'/g, "'");
+                    
+                    console.log('Cleaned metadata string:', cleanStr);
+                    
+                    // Try to parse as JSON
+                    return JSON.parse(cleanStr);
+                } catch (error) {
+                    console.warn('Failed to parse metadata as JSON:', error);
+                    
+                    // Try alternative parsing for malformed JSON
+                    try {
+                        // Extract key-value pairs manually
+                        const result = {};
+                        const pairs = metadata.match(/"([^"]+)":\s*"([^"]+)"/g);
+                        
+                        if (pairs) {
+                            pairs.forEach(pair => {
+                                const match = pair.match(/"([^"]+)":\s*"([^"]+)"/);
+                                if (match) {
+                                    result[match[1]] = match[2];
+                                }
+                            });
+                        }
+                        
+                        return result;
+                    } catch (e) {
+                        console.error('All parsing attempts failed:', e);
+                        return {};
+                    }
+                }
+            }
+            
+            return {};
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'info', duration = 5000) {
+            // Remove existing notifications
+            document.querySelectorAll('.notification').forEach(el => el.remove());
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <div>
+                    <strong>${type.charAt(0).toUpperCase() + type.slice(1)}:</strong>
+                    <p style="margin-top: 5px; margin-bottom: 0;">${message}</p>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after duration
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideOutRight 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, duration);
+            
+            return notification;
+        }
+        
+        // Show error message
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.style.display = 'block';
+            
+            // Auto hide after 8 seconds
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 8000);
+        }
+        
+        // ============================================
+        // ROLE MANAGEMENT FUNCTIONS
+        // ============================================
+        
+        // Check user role with multiple fallbacks
+        async function checkUserRole(showNotification = false) {
             const currentUser = netlifyIdentity.currentUser();
             
             if (!currentUser) {
-                showError('No user logged in');
+                if (showNotification) {
+                    showNotification('No user logged in', 'error');
+                }
                 return;
             }
             
             try {
                 loadingIndicator.style.display = 'block';
                 
-                // Try to check role via function
-                const response = await fetch('/.netlify/functions/check-role', {
-                    headers: {
-                        'Authorization': 'Bearer ' + currentUser.token.access_token
-                    }
-                });
+                // Method 1: Try to get role from metadata directly
+                const metadata = parseNetlifyMetadata(currentUser.user_metadata);
+                const directRole = metadata.role || 'editor';
                 
-                if (response.ok) {
-                    const data = await response.json();
-                    const role = data.user?.role || 'Not set';
-                    const isAdmin = data.user?.isAdmin || false;
+                console.log('Direct role from metadata:', directRole);
+                console.log('Full metadata:', metadata);
+                
+                // Method 2: Try Netlify Functions API
+                let apiRole = directRole;
+                let isAdmin = directRole === 'admin';
+                
+                try {
+                    const response = await fetch('/.netlify/functions/check-role', {
+                        headers: {
+                            'Authorization': 'Bearer ' + currentUser.token.access_token
+                        }
+                    });
                     
-                    userRole.textContent = role.charAt(0).toUpperCase() + role.slice(1);
-                    
-                    // Update UI based on role
-                    if (isAdmin) {
-                        userRole.style.background = 'rgba(239, 68, 68, 0.2)';
-                        userRole.style.color = '#dc2626';
-                    } else {
-                        userRole.style.background = 'rgba(59, 130, 246, 0.2)';
-                        userRole.style.color = '#2563eb';
+                    if (response.ok) {
+                        const data = await response.json();
+                        apiRole = data.user?.role || directRole;
+                        isAdmin = data.user?.isAdmin || (apiRole === 'admin');
+                        console.log('API role:', apiRole);
                     }
-                    
-                    showNotification(`Your role: ${role}`, 'success');
-                } else {
-                    // Fallback to checking metadata directly
-                    const role = currentUser.user_metadata?.role || 'editor';
-                    userRole.textContent = role.charAt(0).toUpperCase() + role.slice(1);
-                    showNotification(`Role from metadata: ${role}`, 'info');
+                } catch (apiError) {
+                    console.warn('API call failed, using direct role:', apiError);
                 }
+                
+                // Method 3: Check for admin email (hardcoded fallback)
+                if (currentUser.email === 'curuzahubfltd@gmail.com') {
+                    apiRole = 'admin';
+                    isAdmin = true;
+                    console.log('Admin detected by email');
+                }
+                
+                // Determine final role
+                const finalRole = isAdmin ? 'admin' : apiRole;
+                
+                // Update UI
+                updateRoleUI(finalRole, isAdmin);
+                
+                // Store in localStorage
+                localStorage.setItem('curuza_user_role', finalRole);
+                localStorage.setItem('curuza_user_email', currentUser.email);
+                localStorage.setItem('curuza_last_check', new Date().toISOString());
+                
+                if (showNotification) {
+                    showNotification(`Your role: ${finalRole.toUpperCase()}`, 'success');
+                }
+                
+                console.log('Final role determined:', finalRole);
                 
             } catch (error) {
                 console.error('Role check failed:', error);
                 
-                // Fallback to localStorage or metadata
-                const storedRole = localStorage.getItem('curuza_user_role');
-                if (storedRole) {
-                    userRole.textContent = storedRole.charAt(0).toUpperCase() + storedRole.slice(1);
-                } else {
-                    userRole.textContent = 'Editor (Default)';
+                // Ultimate fallback
+                const storedRole = localStorage.getItem('curuza_user_role') || 'editor';
+                updateRoleUI(storedRole, storedRole === 'admin');
+                
+                if (showNotification) {
+                    showNotification(`Using stored role: ${storedRole}`, 'warning');
                 }
                 
-                showNotification('Using default role settings', 'warning');
             } finally {
                 loadingIndicator.style.display = 'none';
             }
         }
         
-        // Show notification
-        function showNotification(message, type = 'info') {
-            // Create notification element
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.innerHTML = `
-                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-                <span>${message}</span>
-            `;
+        // Update UI based on role
+        function updateRoleUI(role, isAdmin = false) {
+            const roleDisplay = role === 'admin' ? 'Admin ★' : role.charAt(0).toUpperCase() + role.slice(1);
+            userRole.textContent = roleDisplay;
             
-            // Add styles
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
-                color: white;
-                padding: 12px 20px;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                z-index: 10000;
-                animation: slideInRight 0.3s ease;
-            `;
-            
-            document.body.appendChild(notification);
-            
-            // Auto remove after 3 seconds
-            setTimeout(() => {
-                notification.style.animation = 'slideOutRight 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
+            if (isAdmin) {
+                userRole.style.background = 'rgba(239, 68, 68, 0.25)';
+                userRole.style.color = '#dc2626';
+                userRole.style.borderColor = 'rgba(220, 38, 38, 0.5)';
+                
+                // Enable all admin features
+                document.querySelectorAll('.dashboard-btn').forEach(btn => {
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'all';
+                    btn.style.cursor = 'pointer';
+                });
+            } else {
+                userRole.style.background = 'rgba(59, 130, 246, 0.25)';
+                userRole.style.color = '#2563eb';
+                userRole.style.borderColor = 'rgba(37, 99, 235, 0.5)';
+                
+                // Only show basic editor features
+                document.querySelectorAll('.dashboard-btn').forEach(btn => {
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'all';
+                });
+            }
         }
         
-        // Show error
-        function showError(message) {
-            errorText.textContent = message;
-            errorMessage.style.display = 'block';
-            
-            // Auto hide after 5 seconds
-            setTimeout(() => {
-                errorMessage.style.display = 'none';
-            }, 5000);
-        }
-        
-        // Update UI based on user
+        // Update UI when user logs in
         function updateUIForUser(user) {
             if (user) {
                 // User is logged in
@@ -680,29 +1068,19 @@
                 errorMessage.style.display = 'none';
                 
                 // Update welcome message
-                const userName = user.user_metadata?.full_name || user.email.split('@')[0];
+                const metadata = parseNetlifyMetadata(user.user_metadata);
+                const userName = metadata.full_name || metadata.name || user.email.split('@')[0];
                 welcomeText.textContent = `Welcome, ${userName}!`;
                 
-                // Check and display role
-                checkUserRole();
+                console.log('User logged in:', user.email);
+                console.log('User metadata:', metadata);
                 
-                // Store user info in localStorage
+                // Check and display role
+                setTimeout(() => checkUserRole(false), 500);
+                
+                // Store user info
                 localStorage.setItem('curuza_last_login', new Date().toISOString());
                 localStorage.setItem('curuza_user_email', user.email);
-                
-                // Add CSS for animations
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes slideInRight {
-                        from { transform: translateX(100%); opacity: 0; }
-                        to { transform: translateX(0); opacity: 1; }
-                    }
-                    @keyframes slideOutRight {
-                        from { transform: translateX(0); opacity: 1; }
-                        to { transform: translateX(100%); opacity: 0; }
-                    }
-                `;
-                document.head.appendChild(style);
                 
             } else {
                 // User is logged out
@@ -712,11 +1090,25 @@
                 
                 // Clear stored data
                 localStorage.removeItem('curuza_user_role');
+                localStorage.removeItem('curuza_last_login');
             }
         }
         
-        // Initialize when DOM is loaded
+        // Handle logout
+        function handleLogout() {
+            if (confirm('Are you sure you want to log out?')) {
+                netlifyIdentity.logout();
+                showNotification('Logged out successfully', 'info');
+            }
+        }
+        
+        // ============================================
+        // NETLIFY IDENTITY INITIALIZATION
+        // ============================================
+        
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 CURUZA HUB Admin Portal - Initializing');
+            
             // Show loading indicator
             loadingIndicator.style.display = 'block';
             
@@ -724,34 +1116,38 @@
             netlifyIdentity.init({
                 APIUrl: 'https://steady-starship-7b39b1.netlify.app/.netlify/identity',
                 locale: 'en',
-                logo: false
+                logo: false,
+                enableGraduatedRegistration: true
             });
             
-            // Check current user after a short delay
-            setTimeout(() => {
-                const currentUser = netlifyIdentity.currentUser();
+            // Event: Identity Initialized
+            netlifyIdentity.on('init', user => {
+                console.log('✅ Netlify Identity initialized');
                 loadingIndicator.style.display = 'none';
                 
-                if (currentUser) {
-                    updateUIForUser(currentUser);
+                if (user) {
+                    console.log('User already logged in:', user.email);
+                    updateUIForUser(user);
                 }
-            }, 1000);
+            });
             
-            // Listen for login events
+            // Event: User Logged In
             netlifyIdentity.on('login', user => {
-                console.log('User logged in:', user.email);
+                console.log('🔑 User logged in:', user.email);
                 updateUIForUser(user);
                 showNotification('Login successful!', 'success');
             });
             
+            // Event: User Logged Out
             netlifyIdentity.on('logout', () => {
-                console.log('User logged out');
+                console.log('🚪 User logged out');
                 updateUIForUser(null);
                 showNotification('Logged out successfully', 'info');
             });
             
+            // Event: Error Occurred
             netlifyIdentity.on('error', err => {
-                console.error('Netlify Identity error:', err);
+                console.error('❌ Netlify Identity error:', err);
                 loadingIndicator.style.display = 'none';
                 showError(err.message || 'Authentication error occurred');
                 
@@ -762,19 +1158,57 @@
                 }
             });
             
-            netlifyIdentity.on('init', user => {
-                console.log('Netlify Identity initialized');
+            // Check current user after initialization
+            setTimeout(() => {
+                const currentUser = netlifyIdentity.currentUser();
                 loadingIndicator.style.display = 'none';
                 
-                if (user) {
-                    updateUIForUser(user);
+                if (currentUser) {
+                    updateUIForUser(currentUser);
+                }
+            }, 1500);
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Ctrl + Alt + R: Check role
+                if (e.ctrlKey && e.altKey && e.key === 'r') {
+                    e.preventDefault();
+                    checkUserRole(true);
+                }
+                
+                // Ctrl + Alt + L: Logout
+                if (e.ctrlKey && e.altKey && e.key === 'l') {
+                    e.preventDefault();
+                    handleLogout();
+                }
+                
+                // Escape: Hide error message
+                if (e.key === 'Escape') {
+                    errorMessage.style.display = 'none';
                 }
             });
+            
+            // Add animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOutRight {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            console.log('✅ Admin portal initialized successfully');
         });
         
         // Make functions available globally
         window.checkUserRole = checkUserRole;
         window.showNotification = showNotification;
+        window.handleLogout = handleLogout;
     </script>
 </body>
 </html>
