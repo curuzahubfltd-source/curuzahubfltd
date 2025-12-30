@@ -8,12 +8,26 @@
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-blue: #1e40af;
+            --secondary-blue: #3b82f6;
+            --accent-gold: #f59e0b;
+            --success-green: #10b981;
+            --danger-red: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-700: #374151;
+            --gray-900: #111827;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
@@ -22,73 +36,150 @@
             justify-content: center;
             padding: 20px;
         }
+        
         .admin-container {
             width: 100%;
-            max-width: 420px;
+            max-width: 480px;
             background: white;
             border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0, 46, 109, 0.15);
+            box-shadow: 0 20px 40px rgba(0, 46, 109, 0.15);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .admin-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 35px 30px;
+            text-align: center;
+            position: relative;
             overflow: hidden;
         }
-        .admin-header {
-            background: linear-gradient(to right, #1e3a8a, #2563eb);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
+        
+        .admin-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
         }
+        
+        .admin-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -30%;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+        
         .logo-admin {
-            width: 80px;
+            width: 90px;
             height: auto;
-            margin: 0 auto 15px;
+            margin: 0 auto 20px;
             display: block;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.2));
+            position: relative;
+            z-index: 1;
         }
+        
         .admin-header h1 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
         }
+        
         .admin-header p {
-            font-size: 14px;
+            font-size: 15px;
             opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
+        
         .admin-body {
-            padding: 35px 30px;
+            padding: 40px 35px;
         }
+        
+        /* Loading States */
+        .loading-indicator {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: var(--secondary-blue);
+        }
+        
+        .loading-indicator i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Login Info */
         .login-info-box {
-            background: #f0f9ff;
-            border-left: 4px solid #3b82f6;
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 0 8px 8px 0;
+            background: #eff6ff;
+            border-left: 4px solid var(--secondary-blue);
+            padding: 18px;
+            margin-bottom: 30px;
+            border-radius: 0 10px 10px 0;
             font-size: 14px;
-            color: #1e40af;
+            color: var(--primary-blue);
+            animation: slideIn 0.5s ease;
         }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
         .login-info-box i {
-            margin-right: 8px;
+            margin-right: 10px;
+            color: var(--secondary-blue);
         }
+        
+        /* Login Methods */
         .login-method {
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
+        
         .method-title {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 15px;
+            color: var(--gray-900);
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
         }
+        
         .method-title i {
-            margin-right: 10px;
-            color: #3b82f6;
+            margin-right: 12px;
+            color: var(--secondary-blue);
+            font-size: 20px;
         }
+        
+        /* Buttons */
         .netlify-identity-button {
             width: 100%;
-            padding: 14px;
-            background: #3b82f6;
+            padding: 16px;
+            background: var(--secondary-blue);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
@@ -96,24 +187,41 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.3);
         }
+        
+        .netlify-identity-button:hover {
+            background: var(--primary-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(59, 130, 246, 0.4);
+        }
+        
         .netlify-identity-button i {
-            margin-right: 10px;
+            margin-right: 12px;
             font-size: 18px;
         }
-        .netlify-identity-button:hover {
-            background: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: 0 7px 14px rgba(37, 99, 235, 0.3);
+        
+        .google-button {
+            background: #db4437;
+            box-shadow: 0 4px 6px rgba(219, 68, 55, 0.3);
         }
+        
+        .google-button:hover {
+            background: #c23321;
+            box-shadow: 0 8px 15px rgba(219, 68, 55, 0.4);
+        }
+        
+        /* Separator */
         .separator {
             text-align: center;
-            margin: 25px 0;
+            margin: 30px 0;
             position: relative;
-            color: #6b7280;
+            color: var(--gray-700);
             font-size: 14px;
+            font-weight: 500;
         }
+        
         .separator::before {
             content: "";
             position: absolute;
@@ -121,100 +229,203 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: #e5e7eb;
+            background: var(--gray-200);
         }
+        
         .separator span {
             background: white;
-            padding: 0 15px;
+            padding: 0 20px;
             position: relative;
+            z-index: 1;
         }
-        .role-notice {
+        
+        /* Role Management */
+        .role-management {
             background: #fffbeb;
             border: 1px solid #fbbf24;
-            border-radius: 8px;
-            padding: 15px;
+            border-radius: 10px;
+            padding: 20px;
             margin-top: 25px;
-            font-size: 13px;
+            font-size: 14px;
             color: #92400e;
         }
-        .role-notice strong {
+        
+        .role-management h4 {
             color: #d97706;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
         }
+        
+        .role-management h4 i {
+            margin-right: 8px;
+        }
+        
+        .role-list {
+            margin-top: 12px;
+            padding-left: 20px;
+        }
+        
+        .role-list li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        /* Admin Dashboard (Hidden by default) */
+        .admin-dashboard {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--success-green), #34d399);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .welcome-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .welcome-message i {
+            font-size: 24px;
+        }
+        
+        .user-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .dashboard-actions {
+            display: grid;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .dashboard-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px;
+            background: var(--secondary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        
+        .dashboard-btn:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(59, 130, 246, 0.3);
+        }
+        
+        .dashboard-btn i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .btn-admin {
+            background: var(--primary-blue);
+        }
+        
+        .btn-logout {
+            background: var(--gray-700);
+        }
+        
+        /* Error States */
+        .error-message {
+            display: none;
+            background: #fee2e2;
+            color: var(--danger-red);
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: shake 0.5s ease;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* Footer */
         .admin-footer {
             text-align: center;
-            padding: 20px;
-            font-size: 12px;
-            color: #6b7280;
-            border-top: 1px solid #e5e7eb;
-            background: #f9fafb;
+            padding: 25px;
+            font-size: 13px;
+            color: var(--gray-700);
+            border-top: 1px solid var(--gray-200);
+            background: var(--gray-50);
         }
+        
         .secure-note {
             display: inline-flex;
             align-items: center;
-            margin-top: 8px;
+            margin-top: 10px;
+            color: var(--success-green);
+            font-weight: 500;
         }
+        
         .secure-note i {
-            color: #10b981;
-            margin-right: 5px;
+            margin-right: 6px;
         }
-        /* Loading and status */
-        .status-message {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            display: none;
-        }
-        .status-success {
-            background: #d1fae5;
-            color: #065f46;
-            border: 1px solid #a7f3d0;
-        }
-        .status-error {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 1px solid #fecaca;
-        }
-        .status-loading {
-            background: #f0f9ff;
-            color: #1e40af;
-            border: 1px solid #bfdbfe;
-        }
-        .status-loading i {
-            animation: spin 1s linear infinite;
-            margin-right: 8px;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        /* Dashboard link */
-        #dashboardLink {
-            display: none;
-            margin-top: 20px;
-            text-align: center;
-        }
-        .dashboard-btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: linear-gradient(to right, #059669, #10b981);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        .dashboard-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(16, 185, 129, 0.3);
-        }
-        /* Mobile adjustments */
-        @media (max-width: 480px) {
+        
+        /* Mobile Responsive */
+        @media (max-width: 520px) {
             .admin-container {
                 border-radius: 12px;
+                max-width: 100%;
             }
+            
+            .admin-body {
+                padding: 30px 25px;
+            }
+            
+            .admin-header {
+                padding: 30px 25px;
+            }
+            
+            .admin-header h1 {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 380px) {
             .admin-body {
                 padding: 25px 20px;
+            }
+            
+            .login-method {
+                margin-bottom: 25px;
+            }
+            
+            .netlify-identity-button {
+                padding: 14px;
+                font-size: 15px;
             }
         }
     </style>
@@ -222,321 +433,348 @@
 <body>
     <div class="admin-container">
         <div class="admin-header">
-            <!-- Logo URL -->
-            <img src="https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png" alt="Curuza Hub Logo" class="logo-admin">
+            <img src="https://ik.imagekit.io/p5fgz8czl/file_00000000057871fdb06e8fd2aa179ffc.png" 
+                 alt="Curuza Hub Logo" 
+                 class="logo-admin">
             <h1>Admin Portal</h1>
             <p>CURUZA HUB F LTD | Content Management System</p>
         </div>
 
         <div class="admin-body">
-            <!-- Status Messages -->
-            <div class="status-message status-loading" id="loadingStatus">
-                <i class="fas fa-spinner"></i> Initializing authentication system...
-            </div>
-            
-            <div class="status-message status-error" id="errorStatus">
-                <i class="fas fa-exclamation-triangle"></i> 
-                <span id="errorMessage">Authentication service unavailable</span>
-            </div>
-            
-            <div class="status-message status-success" id="successStatus">
-                <i class="fas fa-check-circle"></i> 
-                <span id="successMessage">Ready to login</span>
+            <!-- Loading Indicator -->
+            <div class="loading-indicator" id="loadingIndicator">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Checking authentication status...</p>
             </div>
 
-            <div class="login-info-box">
-                <i class="fas fa-info-circle"></i>
-                <strong>Access Restricted:</strong> This portal is for authorized Admins & Editors only. All logins require approval.
+            <!-- Error Message -->
+            <div class="error-message" id="errorMessage">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p id="errorText">Authentication error occurred</p>
             </div>
 
-            <!-- Email Login Method -->
-            <div class="login-method">
-                <div class="method-title">
-                    <i class="fas fa-envelope"></i> Login with Email
+            <!-- Login Info -->
+            <div class="login-info-box" id="loginInfo">
+                <i class="fas fa-shield-alt"></i>
+                <strong>Restricted Access:</strong> This portal is for authorized Admins & Editors only.
+            </div>
+
+            <!-- Login Section (Default) -->
+            <div id="loginSection">
+                <!-- Email Login -->
+                <div class="login-method">
+                    <div class="method-title">
+                        <i class="fas fa-envelope"></i> Login with Email
+                    </div>
+                    <button class="netlify-identity-button" onclick="netlifyIdentity.open('login')">
+                        <i class="fas fa-sign-in-alt"></i> Sign In / Sign Up
+                    </button>
+                    <p style="font-size: 13px; color: var(--gray-700); margin-top: 10px;">
+                        Use your registered email address. New accounts require admin approval.
+                    </p>
                 </div>
-                <button class="netlify-identity-button" id="emailLoginBtn">
-                    <i class="fas fa-sign-in-alt"></i> Sign In / Sign Up
-                </button>
-                <p style="font-size: 13px; color: #4b5563; margin-top: 8px;">
-                    Use your email address. New accounts must be approved by a site administrator.
-                </p>
-            </div>
 
-            <div class="separator">
-                <span>OR CONTINUE WITH</span>
-            </div>
-
-            <!-- External Providers -->
-            <div class="login-method">
-                <div class="method-title">
-                    <i class="fab fa-google"></i> Login with Google
+                <div class="separator">
+                    <span>OR CONTINUE WITH</span>
                 </div>
-                <button class="netlify-identity-button" id="googleLoginBtn" style="background: #db4437;">
-                    <i class="fab fa-google"></i> Google Sign In
-                </button>
-                <p style="font-size: 13px; color: #4b5563; margin-top: 8px;">
-                    One-click login with your Google account (requires admin approval).
-                </p>
-            </div>
 
-            <!-- Dashboard Link (shown after successful login) -->
-            <div id="dashboardLink">
-                <a href="#" class="dashboard-btn" id="goToDashboard">
-                    <i class="fas fa-columns"></i> Go to Content Dashboard
-                </a>
-                <p style="margin-top: 10px; font-size: 13px;">
-                    Manage website content, opportunities, and services.
-                </p>
-            </div>
-
-            <!-- Manual Login Form (Fallback) -->
-            <div class="login-method" id="manualLoginForm" style="display: none;">
-                <div class="method-title">
-                    <i class="fas fa-key"></i> Manual Login
+                <!-- Google Login -->
+                <div class="login-method">
+                    <div class="method-title">
+                        <i class="fab fa-google"></i> Login with Google
+                    </div>
+                    <button class="netlify-identity-button google-button" onclick="netlifyIdentity.open('login')">
+                        <i class="fab fa-google"></i> Google Sign In
+                    </button>
+                    <p style="font-size: 13px; color: var(--gray-700); margin-top: 10px;">
+                        One-click authentication with your Google account.
+                    </p>
                 </div>
-                <div class="form-group">
-                    <input type="email" id="manualEmail" placeholder="Enter your email" style="width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #d1d5db; border-radius: 8px;">
+
+                <!-- Role Information -->
+                <div class="role-management">
+                    <h4><i class="fas fa-user-cog"></i> Role-Based Access Control</h4>
+                    <p>Different permissions for different roles:</p>
+                    <ul class="role-list">
+                        <li><strong>Editor:</strong> Can create, edit, and delete content</li>
+                        <li><strong>Admin:</strong> Full access + user management + role assignment</li>
+                    </ul>
+                    <p style="margin-top: 12px; font-style: italic;">
+                        <i class="fas fa-info-circle"></i> To request access or role changes, contact the site owner.
+                    </p>
                 </div>
-                <button class="netlify-identity-button" id="manualLoginBtn" style="background: #059669;">
-                    <i class="fas fa-paper-plane"></i> Send Login Link
-                </button>
-                <p style="font-size: 13px; color: #4b5563; margin-top: 8px;">
-                    We'll send a magic link to your email for passwordless login.
-                </p>
             </div>
 
-            <!-- Role Notice -->
-            <div class="role-notice">
-                <strong><i class="fas fa-shield-alt"></i> Role-Based Permissions:</strong>
-                <ul style="margin-top: 8px; padding-left: 20px;">
-                    <li><strong>Editor:</strong> Can create, edit, and delete content.</li>
-                    <li><strong>Admin:</strong> Full access + can approve new user registrations.</li>
-                </ul>
-                <p style="margin-top: 10px; margin-bottom: 0;">
-                    <i class="fas fa-user-cog"></i> To request access, contact: curuzahubfltd@gmail.com
-                </p>
+            <!-- Admin Dashboard (Hidden by default) -->
+            <div class="admin-dashboard" id="adminDashboard">
+                <div class="dashboard-header">
+                    <div class="welcome-message">
+                        <i class="fas fa-check-circle"></i>
+                        <h2 id="welcomeText">Welcome Back!</h2>
+                    </div>
+                    <p>You are logged in as: <span id="userRole" class="user-badge">Loading...</span></p>
+                </div>
+
+                <div class="dashboard-actions">
+                    <a href="/admin/#/collections" class="dashboard-btn">
+                        <i class="fas fa-columns"></i> CMS Dashboard
+                    </a>
+                    
+                    <a href="/admin/#/collections/services" class="dashboard-btn">
+                        <i class="fas fa-concierge-bell"></i> Manage Services
+                    </a>
+                    
+                    <a href="/admin/#/collections/opportunities" class="dashboard-btn">
+                        <i class="fas fa-briefcase"></i> Manage Opportunities
+                    </a>
+                    
+                    <a href="/admin/#/collections/pages" class="dashboard-btn">
+                        <i class="fas fa-file-alt"></i> Edit Pages
+                    </a>
+                    
+                    <button class="dashboard-btn btn-admin" onclick="checkUserRole()">
+                        <i class="fas fa-user-cog"></i> Check My Role
+                    </button>
+                    
+                    <button class="dashboard-btn btn-logout" onclick="netlifyIdentity.logout()">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
             </div>
         </div>
 
         <div class="admin-footer">
-            <p>CURUZA HUB F LTD &copy; 2025 | Internal Use Only</p>
+            <p>CURUZA HUB F LTD &copy; 2025 | Internal Management System</p>
             <div class="secure-note">
                 <i class="fas fa-lock"></i> Secured by Netlify Identity & HTTPS
             </div>
-            <p style="margin-top: 8px; font-size: 11px; color: #9ca3af;">
-                Site: <span id="currentSiteUrl">curuzahubfltd.netlify.app</span>
-            </p>
         </div>
     </div>
 
     <!-- Netlify Identity & Custom Auth Logic -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // DOM Elements
-            const loadingStatus = document.getElementById('loadingStatus');
-            const errorStatus = document.getElementById('errorStatus');
-            const successStatus = document.getElementById('successStatus');
-            const errorMessage = document.getElementById('errorMessage');
-            const successMessage = document.getElementById('successMessage');
-            const dashboardLink = document.getElementById('dashboardLink');
-            const emailLoginBtn = document.getElementById('emailLoginBtn');
-            const googleLoginBtn = document.getElementById('googleLoginBtn');
-            const goToDashboard = document.getElementById('goToDashboard');
-            const manualLoginForm = document.getElementById('manualLoginForm');
-            const manualLoginBtn = document.getElementById('manualLoginBtn');
-            const manualEmail = document.getElementById('manualEmail');
+        // DOM Elements
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const loginSection = document.getElementById('loginSection');
+        const adminDashboard = document.getElementById('adminDashboard');
+        const loginInfo = document.getElementById('loginInfo');
+        const welcomeText = document.getElementById('welcomeText');
+        const userRole = document.getElementById('userRole');
+        
+        // Role checking function
+        async function checkUserRole() {
+            const currentUser = netlifyIdentity.currentUser();
             
-            // Get current site URL
-            const currentSiteUrl = window.location.hostname;
-            document.getElementById('currentSiteUrl').textContent = currentSiteUrl;
-            
-            // Show initial loading state
-            loadingStatus.style.display = 'block';
-            errorStatus.style.display = 'none';
-            successStatus.style.display = 'none';
-            
-            // Initialize Netlify Identity with correct configuration
-            function initializeNetlifyIdentity() {
-                try {
-                    // Check if Netlify Identity widget is loaded
-                    if (typeof netlifyIdentity === 'undefined') {
-                        throw new Error('Netlify Identity widget not loaded');
-                    }
-                    
-                    // Auto-detect the correct API URL
-                    const apiUrl = `https://${currentSiteUrl}/.netlify/identity`;
-                    console.log('🔧 Using Netlify Identity API URL:', apiUrl);
-                    
-                    // Initialize with correct settings
-                    netlifyIdentity.init({
-                        APIUrl: `https://${currentSiteUrl}/.netlify/identity`,
-                        locale: 'en',
-                        logo: false
-                    });
-                    
-                    // Set up event listeners
-                    setupIdentityEvents();
-                    
-                    // Check if user is already logged in
-                    checkCurrentUser();
-                    
-                    return true;
-                    
-                } catch (error) {
-                    console.error('❌ Netlify Identity initialization failed:', error);
-                    showError(`Authentication system error: ${error.message}`);
-                    showManualLoginOption();
-                    return false;
-                }
+            if (!currentUser) {
+                showError('No user logged in');
+                return;
             }
             
-            // Set up Netlify Identity event listeners
-            function setupIdentityEvents() {
-                // Login event
-                netlifyIdentity.on('login', user => {
-                    console.log('✅ User logged in:', user.email);
-                    
-                    loadingStatus.style.display = 'none';
-                    errorStatus.style.display = 'none';
-                    successStatus.style.display = 'block';
-                    successMessage.textContent = `Welcome, ${user.email}!`;
-                    
-                    // Show dashboard link
-                    dashboardLink.style.display = 'block';
-                    goToDashboard.href = `https://${currentSiteUrl}/admin/#/collections`;
-                    
-                    // Update dashboard button text with user role
-                    const userRole = user.user_metadata?.role || user.app_metadata?.roles?.[0] || 'User';
-                    goToDashboard.innerHTML = `<i class="fas fa-columns"></i> Go to CMS Dashboard (${userRole})`;
+            try {
+                loadingIndicator.style.display = 'block';
+                
+                // Try to check role via function
+                const response = await fetch('/.netlify/functions/check-role', {
+                    headers: {
+                        'Authorization': 'Bearer ' + currentUser.token.access_token
+                    }
                 });
                 
-                // Logout event
-                netlifyIdentity.on('logout', () => {
-                    console.log('👋 User logged out');
+                if (response.ok) {
+                    const data = await response.json();
+                    const role = data.user?.role || 'Not set';
+                    const isAdmin = data.user?.isAdmin || false;
                     
-                    loadingStatus.style.display = 'none';
-                    errorStatus.style.display = 'none';
-                    successStatus.style.display = 'block';
-                    successMessage.textContent = 'Logged out successfully';
+                    userRole.textContent = role.charAt(0).toUpperCase() + role.slice(1);
                     
-                    // Hide dashboard link
-                    dashboardLink.style.display = 'none';
-                });
-                
-                // Error event
-                netlifyIdentity.on('error', err => {
-                    console.error('❌ Netlify Identity error:', err);
-                    showError(`Authentication error: ${err.message || 'Unknown error'}`);
-                    showManualLoginOption();
-                });
-                
-                // Init event
-                netlifyIdentity.on('init', user => {
-                    console.log('⚡ Netlify Identity initialized');
-                    loadingStatus.style.display = 'none';
-                    
-                    if (user) {
-                        successStatus.style.display = 'block';
-                        successMessage.textContent = `Already logged in as ${user.email}`;
-                        dashboardLink.style.display = 'block';
-                        goToDashboard.href = `https://${currentSiteUrl}/admin/#/collections`;
+                    // Update UI based on role
+                    if (isAdmin) {
+                        userRole.style.background = 'rgba(239, 68, 68, 0.2)';
+                        userRole.style.color = '#dc2626';
                     } else {
-                        successStatus.style.display = 'block';
-                        successMessage.textContent = 'Ready to login';
+                        userRole.style.background = 'rgba(59, 130, 246, 0.2)';
+                        userRole.style.color = '#2563eb';
                     }
-                });
-            }
-            
-            // Check current user
-            function checkCurrentUser() {
-                const currentUser = netlifyIdentity.currentUser();
-                if (currentUser) {
-                    netlifyIdentity.on('login', currentUser);
+                    
+                    showNotification(`Your role: ${role}`, 'success');
+                } else {
+                    // Fallback to checking metadata directly
+                    const role = currentUser.user_metadata?.role || 'editor';
+                    userRole.textContent = role.charAt(0).toUpperCase() + role.slice(1);
+                    showNotification(`Role from metadata: ${role}`, 'info');
                 }
-            }
-            
-            // Show error message
-            function showError(message) {
-                loadingStatus.style.display = 'none';
-                errorStatus.style.display = 'block';
-                errorMessage.textContent = message;
-                successStatus.style.display = 'none';
-            }
-            
-            // Show manual login option
-            function showManualLoginOption() {
-                manualLoginForm.style.display = 'block';
                 
-                // Manual login button
-                manualLoginBtn.addEventListener('click', function() {
-                    const email = manualEmail.value.trim();
-                    
-                    if (!email || !isValidEmail(email)) {
-                        showError('Please enter a valid email address');
-                        return;
+            } catch (error) {
+                console.error('Role check failed:', error);
+                
+                // Fallback to localStorage or metadata
+                const storedRole = localStorage.getItem('curuza_user_role');
+                if (storedRole) {
+                    userRole.textContent = storedRole.charAt(0).toUpperCase() + storedRole.slice(1);
+                } else {
+                    userRole.textContent = 'Editor (Default)';
+                }
+                
+                showNotification('Using default role settings', 'warning');
+            } finally {
+                loadingIndicator.style.display = 'none';
+            }
+        }
+        
+        // Show notification
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                z-index: 10000;
+                animation: slideInRight 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        // Show error
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.style.display = 'block';
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Update UI based on user
+        function updateUIForUser(user) {
+            if (user) {
+                // User is logged in
+                loginSection.style.display = 'none';
+                loginInfo.style.display = 'none';
+                adminDashboard.style.display = 'block';
+                errorMessage.style.display = 'none';
+                
+                // Update welcome message
+                const userName = user.user_metadata?.full_name || user.email.split('@')[0];
+                welcomeText.textContent = `Welcome, ${userName}!`;
+                
+                // Check and display role
+                checkUserRole();
+                
+                // Store user info in localStorage
+                localStorage.setItem('curuza_last_login', new Date().toISOString());
+                localStorage.setItem('curuza_user_email', user.email);
+                
+                // Add CSS for animations
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes slideInRight {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
                     }
-                    
-                    // Show message about manual setup needed
-                    showError(`Login via email requires Netlify Identity configuration. Please contact the site administrator at curuzahubfltd@gmail.com`);
-                });
+                    @keyframes slideOutRight {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+            } else {
+                // User is logged out
+                loginSection.style.display = 'block';
+                loginInfo.style.display = 'block';
+                adminDashboard.style.display = 'none';
+                
+                // Clear stored data
+                localStorage.removeItem('curuza_user_role');
             }
-            
-            // Email validation
-            function isValidEmail(email) {
-                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return re.test(email);
-            }
-            
-            // Button event handlers
-            emailLoginBtn.addEventListener('click', function() {
-                if (typeof netlifyIdentity !== 'undefined') {
-                    netlifyIdentity.open('login');
-                } else {
-                    showError('Login system not available. Please try manual login.');
-                    showManualLoginOption();
-                }
-            });
-            
-            googleLoginBtn.addEventListener('click', function() {
-                if (typeof netlifyIdentity !== 'undefined') {
-                    netlifyIdentity.open('login');
-                } else {
-                    showError('Google login not available. Please use email login.');
-                }
-            });
-            
-            // Dashboard link click handler
-            goToDashboard.addEventListener('click', function(e) {
-                if (!this.href || this.href === '#') {
-                    e.preventDefault();
-                    showError('Dashboard not configured. Please login first.');
-                }
-            });
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show loading indicator
+            loadingIndicator.style.display = 'block';
             
             // Initialize Netlify Identity
+            netlifyIdentity.init({
+                APIUrl: 'https://steady-starship-7b39b1.netlify.app/.netlify/identity',
+                locale: 'en',
+                logo: false
+            });
+            
+            // Check current user after a short delay
             setTimeout(() => {
-                if (!initializeNetlifyIdentity()) {
-                    // If initialization fails, show manual option after delay
-                    setTimeout(showManualLoginOption, 2000);
+                const currentUser = netlifyIdentity.currentUser();
+                loadingIndicator.style.display = 'none';
+                
+                if (currentUser) {
+                    updateUIForUser(currentUser);
                 }
             }, 1000);
             
-            // Add helpful debug info
-            console.log('🌐 Current Site URL:', currentSiteUrl);
-            console.log('🔧 Netlify Identity Status:', typeof netlifyIdentity !== 'undefined' ? 'Loaded' : 'Not Loaded');
+            // Listen for login events
+            netlifyIdentity.on('login', user => {
+                console.log('User logged in:', user.email);
+                updateUIForUser(user);
+                showNotification('Login successful!', 'success');
+            });
             
-            // Test Netlify Identity endpoint
-            fetch(`https://${currentSiteUrl}/.netlify/identity`)
-                .then(response => {
-                    console.log('🔍 Netlify Identity endpoint test:', response.status);
-                    if (response.status === 404) {
-                        showError('Netlify Identity is not enabled on this site. Please enable it in Netlify dashboard.');
-                    }
-                })
-                .catch(error => {
-                    console.warn('🔍 Netlify Identity endpoint unreachable:', error.message);
-                });
+            netlifyIdentity.on('logout', () => {
+                console.log('User logged out');
+                updateUIForUser(null);
+                showNotification('Logged out successfully', 'info');
+            });
+            
+            netlifyIdentity.on('error', err => {
+                console.error('Netlify Identity error:', err);
+                loadingIndicator.style.display = 'none';
+                showError(err.message || 'Authentication error occurred');
+                
+                // Try to check if user is already logged in
+                const currentUser = netlifyIdentity.currentUser();
+                if (currentUser) {
+                    updateUIForUser(currentUser);
+                }
+            });
+            
+            netlifyIdentity.on('init', user => {
+                console.log('Netlify Identity initialized');
+                loadingIndicator.style.display = 'none';
+                
+                if (user) {
+                    updateUIForUser(user);
+                }
+            });
         });
+        
+        // Make functions available globally
+        window.checkUserRole = checkUserRole;
+        window.showNotification = showNotification;
     </script>
 </body>
 </html>
